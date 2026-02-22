@@ -41,7 +41,28 @@ export function shouldShowVariantToggle(command: Command): boolean {
 }
 
 export function getDefaultVariant(command: Command): CommandVariant {
-  return command.variants[command.defaultVariantKey] ?? Object.values(command.variants)[0];
+  const explicit = command.variants[command.defaultVariantKey];
+  if (explicit) return explicit;
+
+  const preferredOrder: Array<{ platform: Platform; shell?: Shell }> = [
+    { platform: 'mac', shell: 'bash' },
+    { platform: 'mac', shell: 'zsh' },
+    { platform: 'linux', shell: 'bash' },
+    { platform: 'linux', shell: 'zsh' },
+    { platform: 'windows', shell: 'powershell' },
+    { platform: 'windows', shell: 'cmd' }
+  ];
+
+  for (const preferred of preferredOrder) {
+    const match = Object.values(command.variants).find((variant) => {
+      if (variant.platform !== preferred.platform) return false;
+      if (preferred.shell && variant.shell !== preferred.shell) return false;
+      return true;
+    });
+    if (match) return match;
+  }
+
+  return Object.values(command.variants)[0];
 }
 
 export function getVariantForPlatform(
