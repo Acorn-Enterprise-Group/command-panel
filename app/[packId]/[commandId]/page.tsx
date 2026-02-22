@@ -1,8 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getCommandById, getCommandsForPack, getPackById } from '../../../data';
+import {
+  getCommandById,
+  getCommandRouteList,
+  getCommandsForPack,
+  getPackById
+} from '../../../data';
 import CommandPageClient from '../../../components/CommandPageClient';
+
+export function generateStaticParams() {
+  return getCommandRouteList();
+}
 
 export function generateMetadata({
   params

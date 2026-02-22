@@ -1,6 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getPackById } from '../../data';
+import { getAllPackIds, getPackById } from '../../data';
+
+export function generateStaticParams() {
+  return getAllPackIds().map((packId) => ({ packId }));
+}
 
 export function generateMetadata({
   params
