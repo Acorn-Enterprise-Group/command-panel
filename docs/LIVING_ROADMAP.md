@@ -17,7 +17,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 ## Ranked Backlog
 - P0 | Traffic | A) Homepage hero clarity + single CTA | RICE: R=8 I=3 C=0.8 E=2 | Done when hero explains value in <3s and has 1 primary CTA | Owner: Codex | Status: DONE
 - P0 | Traffic | B) Site-wide navigation to categories | RICE: R=7 I=2.5 C=0.7 E=2 | Done when nav links to main categories and is visible on all pages | Owner: Codex | Status: DONE
-- P0 | Traffic | C) Client-side search across commands/packs | RICE: R=7 I=2.5 C=0.7 E=3 | Done when search finds commands across packs and results are visible | Owner: Codex | Status: TODO
+- P0 | Traffic | C) Client-side search across commands/packs | RICE: R=7 I=2.5 C=0.7 E=3 | Done when search finds commands across packs and results are visible | Owner: Codex | Status: DONE
 - P0 | Traffic | D) Metadata per page (title/description/OG) | RICE: R=9 I=2.5 C=0.7 E=2 | Done when pages have unique meta and OG tags | Owner: Codex | Status: TODO
 - P0 | Traffic | E) sitemap.xml + robots.txt | RICE: R=9 I=2 C=0.8 E=1 | Done when sitemap and robots are served | Owner: Codex | Status: TODO
 - P0 | Traffic | F) Canonical URLs + primary domain | RICE: R=8 I=2 C=0.6 E=2 | Done when canonical tags exist and domain rule documented | Owner: Codex | Status: TODO
@@ -37,6 +37,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - 2026-02-22: Initialized living roadmap and recorded current state.
 - 2026-02-22: Updated hero headline/subheadline and added single CTA. Next: site-wide navigation (P0 B). Score: Traffic 35 / Learning 25 / Utility 30.
 - 2026-02-22: Added category navigation linked to command sections. Next: global search across packs (P0 C). Score: Traffic 40 / Learning 25 / Utility 32.
+- 2026-02-22: Added global search across packs/commands with results list. Next: metadata + sitemap + canonical (P0 D–F). Score: Traffic 48 / Learning 25 / Utility 34.
 
 ## Weekly Execution Plan (Next 7 Days)
 - Day 1: P0 A hero clarity + CTA, update roadmap
