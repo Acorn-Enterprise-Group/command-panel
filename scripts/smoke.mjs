@@ -119,6 +119,16 @@ if (!Array.isArray(packs)) {
           `Command ${command.id} is missing learning.whatItDoes or learning.whenToUse.`
         );
       }
+
+      const platforms = new Set(
+        Object.values(command.variants ?? {}).map((variant) => variant.platform)
+      );
+      if (!platforms.has('windows')) {
+        problems.push(`Command ${command.id} is missing a Windows variant.`);
+      }
+      if (!platforms.has('mac') && !platforms.has('linux')) {
+        problems.push(`Command ${command.id} is missing a macOS/Linux variant.`);
+      }
     });
   });
 }
