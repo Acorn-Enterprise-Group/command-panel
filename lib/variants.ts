@@ -35,6 +35,8 @@ export function getVariantOptions(command: Command): VariantOption[] {
 }
 
 export function shouldShowVariantToggle(command: Command): boolean {
+  // If all variants are identical, hide the toggle to avoid misleading users.
+  // We still keep separate variant entries for future OS-specific differences.
   const commands = Object.values(command.variants).map((variant) => variant.command.trim());
   const unique = new Set(commands);
   return unique.size > 1;
@@ -81,4 +83,10 @@ export function getVariantForPlatform(
   );
   const [key, variant] = preferred ?? matching[0];
   return { key, variant };
+}
+
+export function formatRunLabel(variant: CommandVariant): string {
+  if (variant.platform === 'windows') return 'Run in PowerShell';
+  if (variant.platform === 'mac') return 'Run in macOS Terminal';
+  return 'Run in Linux Terminal';
 }

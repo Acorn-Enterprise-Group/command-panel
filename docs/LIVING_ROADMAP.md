@@ -51,6 +51,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - 2026-02-22: Documented Windows PowerShell build/run workaround. Next: internal linking pass. Score: Traffic 82 / Learning 50 / Utility 43.
 - 2026-02-22: Refined related command linking (adjacency + tag overlap). Score: Traffic 84 / Learning 50 / Utility 44.
 - 2026-02-22: Centralized commands in data/commands.ts (single source of truth). Score: Traffic 84 / Learning 50 / Utility 44.
+- 2026-02-22: Ensured every command has Windows + macOS/Linux variants and added run labels. Score: Traffic 86 / Learning 52 / Utility 45.
 
 ## Weekly Execution Plan (Next 7 Days)
 - Day 1: P0 A hero clarity + CTA, update roadmap

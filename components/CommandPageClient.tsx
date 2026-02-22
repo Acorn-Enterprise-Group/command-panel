@@ -5,6 +5,7 @@ import CopyButton from './CopyButton';
 import type { Command } from '../data/schema';
 import {
   formatVariantLabel,
+  formatRunLabel,
   getDefaultVariant,
   getVariantOptions,
   shouldShowVariantToggle
@@ -74,9 +75,14 @@ export default function CommandPageClient({ command }: { command: Command }) {
         </div>
         <div className="mt-4 overflow-hidden rounded-xl border border-white/10 bg-ink-850">
           <div className="flex items-center justify-between border-b border-white/10 bg-ink-800 px-4 py-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-moss-500">
-              {formatVariantLabel(activeVariant)}
-            </span>
+            <div className="flex flex-col gap-1">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-white/50">
+                {formatRunLabel(activeVariant)}
+              </span>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-moss-500">
+                {formatVariantLabel(activeVariant)}
+              </span>
+            </div>
           </div>
           <pre className="overflow-x-auto px-5 py-4 text-lg font-mono text-white">
             <code>{activeVariant.command}</code>
