@@ -1,35 +1,33 @@
-import type { CommandItem, Pack } from './schema';
+import type { Command, Pack } from './schema';
 import { defaultPack } from './packs/default';
 
 export const packs: Pack[] = [defaultPack];
 
 export function getPackById(id?: string | null): Pack {
   if (!id) return defaultPack;
-  return packs.find((pack) => pack.id === id) ?? defaultPack;
+  return packs.find((pack) => pack.id === id || pack.slug === id) ?? defaultPack;
 }
 
 export function getAllPackIds(): string[] {
-  return packs.map((pack) => pack.id);
+  return packs.map((pack) => pack.slug);
 }
 
-export function getCommandsForPack(packId: string): CommandItem[] {
+export function getCommandsForPack(packId: string): Command[] {
   const pack = getPackById(packId);
-  return pack.sets.flatMap((set) => set.items);
+  return pack.commands;
 }
 
-export function getCommandById(packId: string, commandId: string): CommandItem | null {
+export function getCommandById(packId: string, commandId: string): Command | null {
   const pack = getPackById(packId);
-  for (const set of pack.sets) {
-    const found = set.items.find((item) => item.id === commandId);
-    if (found) return found;
-  }
-  return null;
+  return (
+    pack.commands.find(
+      (item) => item.id === commandId || item.slug === commandId
+    ) ?? null
+  );
 }
 
 export function getCommandRouteList(): Array<{ packId: string; commandId: string }> {
   return packs.flatMap((pack) =>
-    pack.sets.flatMap((set) =>
-      set.items.map((item) => ({ packId: pack.id, commandId: item.id }))
-    )
+    pack.commands.map((item) => ({ packId: pack.slug, commandId: item.slug }))
   );
 }
