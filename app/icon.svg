@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="CopyCommand">
+  <title>CopyCommand</title>
+  <rect width="512" height="512" fill="transparent"/>
+  <g stroke="#1B1B1B" stroke-width="18" stroke-linejoin="round" stroke-linecap="round">
+    <circle cx="256" cy="256" r="160" fill="#F5C94A"/>
+    <polygon points="140,120 210,120 175,40" fill="#F5C94A"/>
+    <polygon points="302,120 372,120 337,40" fill="#F5C94A"/>
+    <circle cx="205" cy="235" r="45" fill="#FFFFFF"/>
+    <circle cx="307" cy="235" r="45" fill="#FFFFFF"/>
+    <circle cx="205" cy="235" r="15" fill="#1B1B1B" stroke="none"/>
+    <circle cx="307" cy="235" r="15" fill="#1B1B1B" stroke="none"/>
+    <polygon points="256,270 230,320 282,320" fill="#E08A1E"/>
+    <ellipse cx="256" cy="370" rx="56" ry="50" fill="#F9D673"/>
+  </g>
+</svg>
