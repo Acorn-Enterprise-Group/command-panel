@@ -9,10 +9,10 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - Utility: Copy events per session, return visits, top commands used weekly
 
 ## Current State Snapshot
-- Next.js 14 static-friendly UI with packs, commands, recipes, and copy buttons
+- Next.js 14 static-friendly UI with packs, commands, copy buttons, and command pages
 - Pack switching supported via query param and local storage
 - No backend, no accounts, no analytics, no ads
-- Build currently blocked by local OS `spawn EPERM` (needs environment fix)
+- Build currently blocked locally by Windows PowerShell execution policy (needs session fix)
 
 ## Ranked Backlog
 - P0 | Traffic | A) Homepage hero clarity + single CTA | RICE: R=8 I=3 C=0.8 E=2 | Done when hero explains value in <3s and has 1 primary CTA | Owner: Codex | Status: DONE
@@ -44,6 +44,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - 2026-02-22: Confirmed cookie notice deferred until analytics/ads. Next: stabilize build and validate Lighthouse basics. Score: Traffic 60 / Learning 45 / Utility 34.
 - 2026-02-22: Added indexable pack and command pages, metadata, related links, and sitemap coverage. Score: Traffic 70 / Learning 45 / Utility 38.
 - 2026-02-22: Added pack intro with starter link, prev/next navigation, and related command links. Score: Traffic 78 / Learning 48 / Utility 40.
+- 2026-02-22: Moved living doc into docs/ as source-of-truth. Next: add sources trust layer. Score: Traffic 78 / Learning 48 / Utility 40.
 
 ## Weekly Execution Plan (Next 7 Days)
 - Day 1: P0 A hero clarity + CTA, update roadmap
