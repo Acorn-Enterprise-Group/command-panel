@@ -3,58 +3,42 @@
 import { useEffect, useMemo, useState } from 'react';
 import CommandCard from './CommandCard';
 import { copyText } from '../lib/clipboard';
-import RecipesPanel from './RecipesPanel';
-import type { CommandItem, CommandSet, Pack, Platform } from '../data/schema';
+import type { Command, Pack } from '../data/schema';
+import { getCommandGroups } from '../lib/pack';
+import { getVariantForPlatform } from '../lib/variants';
 
 const platformOptions = [
   { id: 'windows', label: 'Windows PowerShell' },
   { id: 'unix', label: 'Mac/Linux Terminal' }
-] as const;
+];
 
-type PlatformFilter = (typeof platformOptions)[number]['id'];
+type PlatformFilter = 'windows' | 'unix';
 type CopyState = 'idle' | 'copied' | 'error';
 
-type Tab = {
-  id: string;
-  label: string;
-  description?: string;
-};
-
-function matchesPlatform(item: CommandItem, filter: PlatformFilter) {
-  const platform: Platform = item.platform ?? 'any';
-  if (filter === 'windows') return platform === 'any' || platform === 'windows';
-  return platform === 'any' || platform === 'mac' || platform === 'linux';
+function getVariantForFilter(command: Command, filter: PlatformFilter) {
+  if (filter === 'windows') return getVariantForPlatform(command, 'windows');
+  return (
+    getVariantForPlatform(command, 'mac') ??
+    getVariantForPlatform(command, 'linux')
+  );
 }
 
-function matchesQuery(item: CommandItem, query: string) {
+function matchesQuery(command: Command, query: string) {
   const q = query.trim().toLowerCase();
   if (!q) return true;
   const bucket = [
-    item.command,
-    item.explain,
-    item.notes ?? '',
-    item.whenToUse ?? '',
-    item.expectedResult ?? '',
-    item.title ?? '',
-    item.example ?? '',
-    item.commonMistake ?? '',
-    ...(item.ifItFails ?? []),
-    ...(item.tags ?? [])
+    command.name,
+    command.learning.whatItDoes,
+    command.learning.whenToUse,
+    ...command.learning.examples.map((example) => example.snippet),
+    ...command.learning.commonMistakes.map((mistake) => mistake.mistake),
+    ...command.learning.commonMistakes.map((mistake) => mistake.fix),
+    ...command.tags,
+    ...command.tools
   ]
     .join(' ')
     .toLowerCase();
   return bucket.includes(q);
-}
-
-function buildTabs(sets: CommandSet[]) {
-  return [
-    ...sets.map((set) => ({
-      id: set.id,
-      label: set.label,
-      description: set.description
-    })),
-    { id: 'recipes', label: 'Recipes', description: 'Guided step-by-step flows.' }
-  ];
 }
 
 export default function CommandTabs({
@@ -66,9 +50,9 @@ export default function CommandTabs({
   activeId?: string;
   onActiveChange?: (id: string) => void;
 }) {
-  const tabs = useMemo(() => buildTabs(pack.sets), [pack.sets]);
+  const groups = useMemo(() => getCommandGroups(pack), [pack]);
   const [internalActiveId, setInternalActiveId] = useState(
-    pack.sets[0]?.id ?? ''
+    groups[0]?.id ?? ''
   );
   const [query, setQuery] = useState('');
   const [copyAllState, setCopyAllState] = useState<CopyState>('idle');
@@ -78,27 +62,32 @@ export default function CommandTabs({
   const currentActiveId = activeId ?? internalActiveId;
 
   useEffect(() => {
-    setInternalActiveId(pack.sets[0]?.id ?? '');
+    setInternalActiveId(groups[0]?.id ?? '');
     setQuery('');
     setCopyAllState('idle');
-  }, [pack.id, pack.sets]);
+  }, [pack.id, groups]);
 
-  const activeSet = useMemo(
-    () => pack.sets.find((set) => set.id === currentActiveId),
-    [currentActiveId, pack.sets]
+  const activeGroup = useMemo(
+    () => groups.find((group) => group.id === currentActiveId),
+    [currentActiveId, groups]
   );
 
   const filteredItems = useMemo(() => {
-    if (!activeSet) return [];
-    return activeSet.items
-      .filter((item) => matchesPlatform(item, platformFilter))
-      .filter((item) => matchesQuery(item, query));
-  }, [activeSet, platformFilter, query]);
+    if (!activeGroup) return [];
+    return activeGroup.commands
+      .map((command) => ({
+        command,
+        variantMatch: getVariantForFilter(command, platformFilter)
+      }))
+      .filter((item) => Boolean(item.variantMatch))
+      .filter((item) => matchesQuery(item.command, query));
+  }, [activeGroup, platformFilter, query]);
 
   const handleCopyAll = async () => {
-    if (!activeSet) return;
+    if (!activeGroup) return;
     const payload = filteredItems
-      .map((item) => item.copyAs ?? item.command)
+      .map((item) => item.variantMatch?.variant.command)
+      .filter(Boolean)
       .join('\n');
     const ok = await copyText(payload);
     setCopyAllState(ok ? 'copied' : 'error');
@@ -114,7 +103,7 @@ export default function CommandTabs({
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap gap-3" role="tablist" aria-label="Command categories">
-          {tabs.map((tab) => (
+          {groups.map((tab) => (
             <button
               key={tab.id}
               role="tab"
@@ -140,7 +129,7 @@ export default function CommandTabs({
               <button
                 key={option.id}
                 type="button"
-                onClick={() => setPlatformFilter(option.id)}
+                onClick={() => setPlatformFilter(option.id as PlatformFilter)}
                 className={`rounded-lg px-3 py-2 text-xs font-semibold transition ${
                   platformFilter === option.id
                     ? 'bg-white text-ink-950'
@@ -170,13 +159,13 @@ export default function CommandTabs({
               className="w-56 rounded-xl border border-white/10 bg-ink-900/70 px-4 py-2 text-sm text-white placeholder:text-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-moss-500"
               aria-label="Search commands"
             />
-            {activeSet && (
+            {activeGroup && (
               <span className="pointer-events-none absolute right-3 top-2.5 text-xs text-white/40">
-                /{activeSet.label}
+                /{activeGroup.label}
               </span>
             )}
           </div>
-          {activeSet && (
+          {activeGroup && (
             <button
               type="button"
               onClick={handleCopyAll}
@@ -202,27 +191,22 @@ export default function CommandTabs({
         Showing {platformFilter === 'windows' ? 'Windows' : 'Mac/Linux'} commands
       </p>
 
-      {activeSet ? (
+      {activeGroup ? (
         <div className="rounded-2xl border border-white/10 bg-ink-900/50 p-6">
           <div className="flex flex-col gap-2">
-            <p className="text-2xl font-semibold">{activeSet.label}</p>
-            {activeSet.description && (
-              <p className="text-sm text-white/60">{activeSet.description}</p>
+            <p className="text-2xl font-semibold">{activeGroup.label}</p>
+            {activeGroup.description && (
+              <p className="text-sm text-white/60">{activeGroup.description}</p>
             )}
           </div>
         </div>
       ) : (
-        <div className="rounded-2xl border border-white/10 bg-ink-900/50 p-6">
-          <div className="flex flex-col gap-2">
-            <p className="text-2xl font-semibold">Recipes</p>
-            <p className="text-sm text-white/60">
-              Step-by-step flows that chain commands together.
-            </p>
-          </div>
+        <div className="rounded-2xl border border-white/10 bg-ink-900/50 p-6 text-white/60">
+          No commands available for this pack yet.
         </div>
       )}
 
-      {activeSet ? (
+      {activeGroup ? (
         <div className="grid gap-6">
           {filteredItems.length === 0 ? (
             <div className="rounded-2xl border border-white/10 bg-ink-900/70 p-8 text-white/60">
@@ -230,17 +214,16 @@ export default function CommandTabs({
             </div>
           ) : (
             filteredItems.map((item) => (
-              <CommandCard key={item.id} item={item} beginnerMode={beginnerMode} />
+              <CommandCard
+                key={item.command.id}
+                command={item.command}
+                variant={item.variantMatch!.variant}
+                beginnerMode={beginnerMode}
+              />
             ))
           )}
         </div>
-      ) : (
-        <RecipesPanel
-          pack={pack}
-          query={query}
-          platformFilter={platformFilter}
-        />
-      )}
+      ) : null}
     </div>
   );
 }

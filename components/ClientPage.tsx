@@ -1,32 +1,34 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import CommandTabs from './CommandTabs';
 import { getPackById, packs } from '../data';
-import type { CommandItem, Pack } from '../data/schema';
+import type { Command, Pack } from '../data/schema';
+import { formatToolLabel, getCommandGroups } from '../lib/pack';
 
 const STORAGE_KEY = 'command-panel-pack';
 
 type SearchHit = {
   packId: string;
   packLabel: string;
-  setId: string;
-  setLabel: string;
-  item: CommandItem;
+  groupId: string;
+  groupLabel: string;
+  command: Command;
 };
 
-function matchesGlobalQuery(item: CommandItem, query: string) {
+function matchesGlobalQuery(command: Command, query: string) {
   const q = query.trim().toLowerCase();
   if (!q) return false;
   const bucket = [
-    item.command,
-    item.explain,
-    item.title ?? '',
-    item.whenToUse ?? '',
-    item.expectedResult ?? '',
-    ...(item.ifItFails ?? []),
-    ...(item.tags ?? [])
+    command.name,
+    command.learning.whatItDoes,
+    command.learning.whenToUse,
+    ...command.learning.examples.map((example) => example.snippet),
+    ...command.learning.commonMistakes.map((mistake) => mistake.mistake),
+    ...command.learning.commonMistakes.map((mistake) => mistake.fix),
+    ...command.tags,
+    ...command.tools
   ]
     .join(' ')
     .toLowerCase();
@@ -39,6 +41,7 @@ export default function ClientPage() {
   const [pack, setPack] = useState<Pack>(() => getPackById('default'));
   const [activeTabId, setActiveTabId] = useState<string>('');
   const [globalQuery, setGlobalQuery] = useState('');
+  const groups = useMemo(() => getCommandGroups(pack), [pack]);
 
   useEffect(() => {
     const queryPack = searchParams.get('pack');
@@ -47,19 +50,19 @@ export default function ClientPage() {
     const desired = queryPack ?? storedPack ?? 'default';
     const nextPack = getPackById(desired);
     setPack(nextPack);
-    setActiveTabId(nextPack.sets[0]?.id ?? '');
+    setActiveTabId(getCommandGroups(nextPack)[0]?.id ?? '');
   }, [searchParams]);
 
   const handlePackChange = (nextId: string) => {
     const nextPack = getPackById(nextId);
     setPack(nextPack);
-    setActiveTabId(nextPack.sets[0]?.id ?? '');
+    setActiveTabId(getCommandGroups(nextPack)[0]?.id ?? '');
     if (typeof window !== 'undefined') {
-      localStorage.setItem(STORAGE_KEY, nextPack.id);
+      localStorage.setItem(STORAGE_KEY, nextPack.slug);
     }
 
     const params = new URLSearchParams(searchParams.toString());
-    params.set('pack', nextPack.id);
+    params.set('pack', nextPack.slug);
     router.replace(`/?${params.toString()}`);
   };
 
@@ -74,13 +77,13 @@ export default function ClientPage() {
   const handleSearchSelect = (hit: SearchHit) => {
     const nextPack = getPackById(hit.packId);
     setPack(nextPack);
-    setActiveTabId(hit.setId);
+    setActiveTabId(hit.groupId);
     setGlobalQuery('');
     if (typeof window !== 'undefined') {
-      localStorage.setItem(STORAGE_KEY, nextPack.id);
+      localStorage.setItem(STORAGE_KEY, nextPack.slug);
     }
     const params = new URLSearchParams(searchParams.toString());
-    params.set('pack', nextPack.id);
+    params.set('pack', nextPack.slug);
     router.replace(`/?${params.toString()}`);
     const commands = document.getElementById('commands');
     if (commands) {
@@ -95,18 +98,17 @@ export default function ClientPage() {
     if (q.length < 2) return [] as SearchHit[];
     const hits: SearchHit[] = [];
     packs.forEach((currentPack) => {
-      currentPack.sets.forEach((set) => {
-        set.items.forEach((item) => {
-          if (matchesGlobalQuery(item, q)) {
-            hits.push({
-              packId: currentPack.id,
-              packLabel: currentPack.label,
-              setId: set.id,
-              setLabel: set.label,
-              item
-            });
-          }
-        });
+      currentPack.commands.forEach((command) => {
+        if (matchesGlobalQuery(command, q)) {
+          const groupId = command.tools[0] ?? 'general';
+          hits.push({
+            packId: currentPack.id,
+            packLabel: currentPack.title,
+            groupId,
+            groupLabel: formatToolLabel(groupId),
+            command
+          });
+        }
       });
     });
     return hits.slice(0, 10);
@@ -125,13 +127,13 @@ export default function ClientPage() {
             </label>
             <select
               id="pack-select"
-              value={pack.id}
+              value={pack.slug}
               onChange={(event) => handlePackChange(event.target.value)}
               className="rounded-xl border border-white/10 bg-ink-900/70 px-4 py-2 text-sm font-semibold text-white"
             >
               {packOptions.map((option) => (
-                <option key={option.id} value={option.id}>
-                  {option.label}
+                <option key={option.id} value={option.slug}>
+                  {option.title}
                 </option>
               ))}
             </select>
@@ -167,16 +169,16 @@ export default function ClientPage() {
                 <div className="absolute z-20 mt-2 w-full rounded-xl border border-white/10 bg-ink-900/95 p-2 shadow-glow">
                   {searchResults.map((hit) => (
                     <button
-                      key={`${hit.packId}-${hit.setId}-${hit.item.id}`}
+                      key={`${hit.packId}-${hit.groupId}-${hit.command.id}`}
                       type="button"
                       onClick={() => handleSearchSelect(hit)}
                       className="w-full rounded-lg px-3 py-2 text-left text-sm text-white/90 hover:bg-white/5"
                     >
                       <span className="font-semibold text-white">
-                        {hit.item.command}
+                        {hit.command.name}
                       </span>
                       <span className="block text-xs text-white/50">
-                        {hit.packLabel} · {hit.setLabel}
+                        {hit.packLabel} · {hit.groupLabel}
                       </span>
                     </button>
                   ))}
@@ -186,18 +188,18 @@ export default function ClientPage() {
           </div>
         </div>
         <nav className="flex flex-wrap gap-2">
-          {pack.sets.map((set) => (
+          {groups.map((group) => (
             <button
-              key={set.id}
+              key={group.id}
               type="button"
-              onClick={() => handleCategoryClick(set.id)}
+              onClick={() => handleCategoryClick(group.id)}
               className={`rounded-full px-4 py-2 text-xs font-semibold transition ${
-                activeTabId === set.id
+                activeTabId === group.id
                   ? 'bg-white text-ink-950'
                   : 'bg-white/5 text-white hover:bg-white/10'
               }`}
             >
-              {set.label}
+              {group.label}
             </button>
           ))}
         </nav>

@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { copyText } from '../lib/clipboard';
-import type { Level } from '../data/schema';
 
 type CopyState = 'idle' | 'copying' | 'copied' | 'error';
+type CopyLevel = 'safe' | 'caution' | 'danger';
 
 export default function CopyButton({
   text,
@@ -13,7 +13,7 @@ export default function CopyButton({
 }: {
   text: string;
   label?: string;
-  level?: Level;
+  level?: CopyLevel;
 }) {
   const [state, setState] = useState<CopyState>('idle');
   const [confirmArmed, setConfirmArmed] = useState(false);
@@ -69,6 +69,14 @@ export default function CopyButton({
     ? 'Copy failed'
     : label;
 
+  const liveMessage = confirmArmed
+    ? 'This can delete work. Click again to copy.'
+    : state === 'copied'
+    ? 'Copied to clipboard.'
+    : state === 'error'
+    ? 'Copy failed. Select the text and copy manually.'
+    : '';
+
   return (
     <div className="flex flex-col items-end gap-2">
       <button
@@ -101,6 +109,9 @@ export default function CopyButton({
           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
         </svg>
       </button>
+      <span className="sr-only" aria-live="polite">
+        {liveMessage}
+      </span>
       {confirmArmed && (
         <span className="text-xs text-rose-200">
           This can delete work. Click again to copy.
