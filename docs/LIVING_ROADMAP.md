@@ -22,8 +22,8 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - P0 | Traffic | E) sitemap.xml + robots.txt | RICE: R=9 I=2 C=0.8 E=1 | Done when sitemap and robots are served | Owner: Codex | Status: DONE
 - P0 | Traffic | F) Canonical URLs + primary domain | RICE: R=8 I=2 C=0.6 E=2 | Done when canonical tags exist and domain rule documented | Owner: Codex | Status: DONE
 - P0 | Traffic | G) Lighthouse basics (perf/a11y) | RICE: R=6 I=2 C=0.6 E=3 | Done when obvious a11y/perf issues are fixed without redesign | Owner: Codex | Status: DONE
-- P0 | Learning | H) Add learning fields per command | RICE: R=6 I=3 C=0.7 E=3 | Done when each command shows what/when/example/mistake | Owner: Codex | Status: TODO
-- P0 | Learning | I) Beginner Mode toggle (default ON) | RICE: R=6 I=3 C=0.7 E=2 | Done when toggle hides help by default OFF | Owner: Codex | Status: TODO
+- P0 | Learning | H) Add learning fields per command | RICE: R=6 I=3 C=0.7 E=3 | Done when each command shows what/when/example/mistake | Owner: Codex | Status: DONE
+- P0 | Learning | I) Beginner Mode toggle (default ON) | RICE: R=6 I=3 C=0.7 E=2 | Done when toggle hides help by default OFF | Owner: Codex | Status: DONE
 - P0 | Trust | J) About/Contact/Privacy pages | RICE: R=5 I=2 C=0.8 E=2 | Done when pages exist and are linked in footer | Owner: Codex | Status: TODO
 - P0 | Trust | K) Cookie notice only if analytics/ads | RICE: R=3 I=1 C=0.9 E=1 | Done when added only after analytics/ads | Owner: Codex | Status: TODO
 - P1 | Traffic | L) Indexable command pages | RICE: R=8 I=3 C=0.6 E=5 | Done when /git/git-clone style pages exist | Owner: Codex | Status: TODO
@@ -39,6 +39,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - 2026-02-22: Added category navigation linked to command sections. Next: global search across packs (P0 C). Score: Traffic 40 / Learning 25 / Utility 32.
 - 2026-02-22: Added global search across packs/commands with results list. Next: metadata + sitemap + canonical (P0 D–F). Score: Traffic 48 / Learning 25 / Utility 34.
 - 2026-02-22: Added metadata/OG, sitemap/robots, canonical + www redirect. Next: learning layer fields + Beginner Mode (P0 H–I). Score: Traffic 58 / Learning 25 / Utility 34.
+- 2026-02-22: Added learning fields (what/when/example/mistake) and Beginner Mode toggle. Next: trust pages (P0 J). Score: Traffic 58 / Learning 45 / Utility 34.
 
 ## Weekly Execution Plan (Next 7 Days)
 - Day 1: P0 A hero clarity + CTA, update roadmap

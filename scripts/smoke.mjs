@@ -106,6 +106,12 @@ if (!Array.isArray(packs)) {
             `Item ${item.id || itemIndex} in set ${set.id} is missing explain or command.`
           );
         }
+
+        if (!item.whatItDoes || !item.example || !item.commonMistake) {
+          problems.push(
+            `Item ${item.id || itemIndex} in set ${set.id} is missing whatItDoes, example, or commonMistake.`
+          );
+        }
       });
     });
 

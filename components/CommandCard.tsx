@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CopyButton from './CopyButton';
 import type { CommandItem, Level } from '../data/schema';
 
@@ -16,9 +16,19 @@ const levelLabels: Record<Level, string> = {
   danger: 'Danger'
 };
 
-export default function CommandCard({ item }: { item: CommandItem }) {
-  const [expanded, setExpanded] = useState(false);
+export default function CommandCard({
+  item,
+  beginnerMode
+}: {
+  item: CommandItem;
+  beginnerMode: boolean;
+}) {
+  const [expanded, setExpanded] = useState(beginnerMode);
   const copyText = item.copyAs ?? item.command;
+
+  useEffect(() => {
+    setExpanded(beginnerMode);
+  }, [beginnerMode]);
 
   return (
     <div className="rounded-2xl border border-white/10 bg-ink-900/70 p-6 shadow-glow">
@@ -69,6 +79,12 @@ export default function CommandCard({ item }: { item: CommandItem }) {
       {expanded && (
         <div className="mt-4 rounded-xl border border-white/10 bg-ink-900/60 p-4 text-sm text-white/80">
           <div className="grid gap-4">
+            {item.whatItDoes && (
+              <div>
+                <p className="font-semibold text-white">What it does</p>
+                <p>{item.whatItDoes}</p>
+              </div>
+            )}
             {item.whenToUse && (
               <div>
                 <p className="font-semibold text-white">When to use</p>
@@ -79,6 +95,18 @@ export default function CommandCard({ item }: { item: CommandItem }) {
               <div>
                 <p className="font-semibold text-white">What should happen</p>
                 <p>{item.expectedResult}</p>
+              </div>
+            )}
+            {item.example && (
+              <div>
+                <p className="font-semibold text-white">Example</p>
+                <p className="font-mono text-white/90">{item.example}</p>
+              </div>
+            )}
+            {item.commonMistake && (
+              <div>
+                <p className="font-semibold text-white">Common mistake</p>
+                <p>{item.commonMistake}</p>
               </div>
             )}
             {item.ifItFails && item.ifItFails.length > 0 && (

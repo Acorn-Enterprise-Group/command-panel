@@ -6,12 +6,15 @@ export type CommandItem = {
   id: string;
   title?: string;
   explain: string;
+  whatItDoes: string;
   command: string;
   shellLabel: Shell;
   tags?: string[];
   level: Level;
   whenToUse: string;
   expectedResult: string;
+  example: string;
+  commonMistake: string;
   ifItFails: string[];
   notes?: string;
   platform: Platform;

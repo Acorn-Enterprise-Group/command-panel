@@ -27,7 +27,10 @@ export const defaultPack: Pack = {
             "setup",
             "install"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Installs all the project tools and packages.",
+          "example": "npm install",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "start-dev",
@@ -45,7 +48,10 @@ export const defaultPack: Pack = {
           "tags": [
             "dev"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Starts the local dev server so you can view the site.",
+          "example": "npm run dev",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "start-open-localhost",
@@ -63,7 +69,10 @@ export const defaultPack: Pack = {
           "tags": [
             "dev"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Opens the local site in your browser.",
+          "example": "http://localhost:3000",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "start-build",
@@ -81,7 +90,10 @@ export const defaultPack: Pack = {
           "tags": [
             "build"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Builds the site for production.",
+          "example": "npm run build",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "start-start",
@@ -99,7 +111,10 @@ export const defaultPack: Pack = {
           "tags": [
             "build"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Runs the production server after a build.",
+          "example": "npm start",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "start-lint",
@@ -117,7 +132,10 @@ export const defaultPack: Pack = {
           "tags": [
             "quality"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Checks the code for common mistakes.",
+          "example": "npm run lint",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "start-node-version",
@@ -135,7 +153,10 @@ export const defaultPack: Pack = {
           "tags": [
             "setup"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Shows your Node.js version.",
+          "example": "node -v",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "start-npm-version",
@@ -153,7 +174,10 @@ export const defaultPack: Pack = {
           "tags": [
             "setup"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Shows your npm version.",
+          "example": "npm -v",
+          "commonMistake": "Running this in the wrong folder."
         }
       ]
     },
@@ -178,7 +202,10 @@ export const defaultPack: Pack = {
           "tags": [
             "fix"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Fixes next is not recognized by installing packages.",
+          "example": "npm install",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "fix-npm-ps1",
@@ -197,7 +224,10 @@ export const defaultPack: Pack = {
             "fix",
             "powerShell"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Runs npm even if PowerShell blocks scripts.",
+          "example": "powershell -ExecutionPolicy Bypass -Command \"npm run dev\"",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "fix-port-find-3000",
@@ -216,7 +246,10 @@ export const defaultPack: Pack = {
             "fix",
             "port"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Finds what is using port 3000.",
+          "example": "netstat -ano | findstr :3000",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "fix-port-kill",
@@ -235,7 +268,10 @@ export const defaultPack: Pack = {
             "fix",
             "port"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Stops the process that is using a port.",
+          "example": "taskkill /PID <PID> /F",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "fix-clear-next",
@@ -254,7 +290,10 @@ export const defaultPack: Pack = {
             "fix",
             "cache"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Deletes the Next.js build cache so it can rebuild cleanly.",
+          "example": "Remove-Item -Recurse -Force .next",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "fix-remove-node-modules",
@@ -273,7 +312,10 @@ export const defaultPack: Pack = {
             "fix",
             "install"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Removes all installed packages so you can reinstall cleanly.",
+          "example": "Remove-Item -Recurse -Force node_modules",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "fix-remove-lockfile",
@@ -292,7 +334,10 @@ export const defaultPack: Pack = {
             "fix",
             "install"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Deletes the lock file so npm can make a fresh one.",
+          "example": "Remove-Item package-lock.json",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "fix-reinstall",
@@ -311,7 +356,10 @@ export const defaultPack: Pack = {
             "fix",
             "install"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Reinstalls everything cleanly after deleting node_modules.",
+          "example": "npm install",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "fix-npm-cache-clean",
@@ -330,7 +378,10 @@ export const defaultPack: Pack = {
             "fix",
             "install"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Clears the npm cache to fix stubborn install errors.",
+          "example": "npm cache clean --force",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "fix-clear-cache-unix",
@@ -349,7 +400,10 @@ export const defaultPack: Pack = {
             "fix",
             "cache"
           ],
-          "platform": "mac"
+          "platform": "mac",
+          "whatItDoes": "Deletes the Next.js cache on Mac or Linux.",
+          "example": "rm -rf .next",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "fix-remove-node-modules-unix",
@@ -368,7 +422,10 @@ export const defaultPack: Pack = {
             "fix",
             "install"
           ],
-          "platform": "mac"
+          "platform": "mac",
+          "whatItDoes": "Removes node_modules on Mac or Linux.",
+          "example": "rm -rf node_modules",
+          "commonMistake": "Running this in the wrong folder."
         }
       ]
     },
@@ -393,7 +450,10 @@ export const defaultPack: Pack = {
           "tags": [
             "git"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Shows which files changed since your last save point.",
+          "example": "git status",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "git-pull",
@@ -411,7 +471,10 @@ export const defaultPack: Pack = {
           "tags": [
             "git"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Downloads the latest changes from the shared repo.",
+          "example": "git pull",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "git-add-all",
@@ -429,7 +492,10 @@ export const defaultPack: Pack = {
           "tags": [
             "git"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Stages all your changes so they are ready to commit.",
+          "example": "git add -A",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "git-commit",
@@ -447,7 +513,10 @@ export const defaultPack: Pack = {
           "tags": [
             "git"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Creates a saved checkpoint with a short message.",
+          "example": "git commit -m \"message\"",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "git-push",
@@ -465,7 +534,10 @@ export const defaultPack: Pack = {
           "tags": [
             "git"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Uploads your commits to the shared repo.",
+          "example": "git push",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "git-log",
@@ -483,7 +555,10 @@ export const defaultPack: Pack = {
           "tags": [
             "git"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Shows the last few commits in a short list.",
+          "example": "git log --oneline -5",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "git-diff",
@@ -501,7 +576,10 @@ export const defaultPack: Pack = {
           "tags": [
             "git"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Shows the exact changes you made to files.",
+          "example": "git diff",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "git-restore-staged",
@@ -519,7 +597,10 @@ export const defaultPack: Pack = {
           "tags": [
             "git"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Unstages files if you added them by mistake.",
+          "example": "git restore --staged .",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "git-stash",
@@ -537,7 +618,10 @@ export const defaultPack: Pack = {
           "tags": [
             "git"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Temporarily saves your changes without committing.",
+          "example": "git stash -u",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "git-stash-pop",
@@ -555,7 +639,10 @@ export const defaultPack: Pack = {
           "tags": [
             "git"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Brings back your last stashed changes.",
+          "example": "git stash pop",
+          "commonMistake": "Running this in the wrong folder."
         }
       ]
     },
@@ -580,7 +667,10 @@ export const defaultPack: Pack = {
           "tags": [
             "db"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Opens a friendly database viewer in your browser.",
+          "example": "npx prisma studio",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "prisma-migrate-dev",
@@ -598,7 +688,10 @@ export const defaultPack: Pack = {
           "tags": [
             "db"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Applies database migrations during development.",
+          "example": "npx prisma migrate dev",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "prisma-generate",
@@ -616,7 +709,10 @@ export const defaultPack: Pack = {
           "tags": [
             "db"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Regenerates the Prisma client code.",
+          "example": "npx prisma generate",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "prisma-db-push",
@@ -635,7 +731,10 @@ export const defaultPack: Pack = {
           "tags": [
             "db"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Pushes schema changes directly to the database.",
+          "example": "npx prisma db push",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "prisma-format",
@@ -653,7 +752,10 @@ export const defaultPack: Pack = {
           "tags": [
             "db"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Formats your Prisma schema file neatly.",
+          "example": "npx prisma format",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "prisma-validate",
@@ -671,7 +773,10 @@ export const defaultPack: Pack = {
           "tags": [
             "db"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Checks your Prisma schema for mistakes.",
+          "example": "npx prisma validate",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "prisma-schema-location",
@@ -689,7 +794,10 @@ export const defaultPack: Pack = {
           "tags": [
             "db"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Shows where your schema.prisma file lives.",
+          "example": "Get-ChildItem -Recurse -Filter schema.prisma",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "prisma-migrate-status",
@@ -707,7 +815,10 @@ export const defaultPack: Pack = {
           "tags": [
             "db"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Shows which migrations have been applied.",
+          "example": "npx prisma migrate status",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "prisma-db-pull",
@@ -725,7 +836,10 @@ export const defaultPack: Pack = {
           "tags": [
             "db"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Pulls the database schema into Prisma.",
+          "example": "npx prisma db pull",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "prisma-seed",
@@ -743,7 +857,10 @@ export const defaultPack: Pack = {
           "tags": [
             "db"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Runs your database seed script.",
+          "example": "npx prisma db seed",
+          "commonMistake": "Running this in the wrong folder."
         }
       ]
     },
@@ -768,7 +885,10 @@ export const defaultPack: Pack = {
           "tags": [
             "troubleshoot"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Shows your Node.js version.",
+          "example": "node -p \"process.version\"",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "trouble-npm-version",
@@ -786,7 +906,10 @@ export const defaultPack: Pack = {
           "tags": [
             "troubleshoot"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Shows your npm version.",
+          "example": "npm -p \"process.versions.npm\"",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "trouble-where-node",
@@ -804,7 +927,10 @@ export const defaultPack: Pack = {
           "tags": [
             "troubleshoot"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Shows where Node.js is installed on Windows.",
+          "example": "where node",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "trouble-which-node",
@@ -822,7 +948,10 @@ export const defaultPack: Pack = {
           "tags": [
             "troubleshoot"
           ],
-          "platform": "mac"
+          "platform": "mac",
+          "whatItDoes": "Shows where Node.js is installed on Mac or Linux.",
+          "example": "which node",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "trouble-logs-dev",
@@ -840,7 +969,10 @@ export const defaultPack: Pack = {
           "tags": [
             "troubleshoot"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Shows the dev server logs in the terminal.",
+          "example": "npm run dev",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "trouble-port-3000",
@@ -858,7 +990,10 @@ export const defaultPack: Pack = {
           "tags": [
             "troubleshoot"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Finds what is running on port 3000.",
+          "example": "netstat -ano | findstr :3000",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "trouble-port-unix",
@@ -876,7 +1011,10 @@ export const defaultPack: Pack = {
           "tags": [
             "troubleshoot"
           ],
-          "platform": "mac"
+          "platform": "mac",
+          "whatItDoes": "Finds what is using port 3000 on Mac or Linux.",
+          "example": "lsof -i :3000",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "trouble-esbuild-path",
@@ -894,7 +1032,10 @@ export const defaultPack: Pack = {
           "tags": [
             "troubleshoot"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Shows where esbuild is installed.",
+          "example": "node -p \"require.resolve('esbuild')\"",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "trouble-npm-ls-esbuild",
@@ -912,7 +1053,10 @@ export const defaultPack: Pack = {
           "tags": [
             "troubleshoot"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Shows which version of esbuild is installed.",
+          "example": "npm ls esbuild",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "trouble-tree",
@@ -930,7 +1074,10 @@ export const defaultPack: Pack = {
           "tags": [
             "troubleshoot"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Shows the top-level files in this folder.",
+          "example": "Get-ChildItem",
+          "commonMistake": "Running this in the wrong folder."
         }
       ]
     },
@@ -955,7 +1102,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Shows what has changed before you reset anything.",
+          "example": "git status",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "reset-git-fetch",
@@ -973,7 +1123,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Downloads remote updates without changing your files.",
+          "example": "git fetch",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "reset-git-pull",
@@ -991,7 +1144,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Updates your local files with the latest remote changes.",
+          "example": "git pull",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "reset-npm-install",
@@ -1009,7 +1165,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Reinstalls packages without deleting your files.",
+          "example": "npm install",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "reset-next-cache",
@@ -1027,7 +1186,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Deletes only the Next.js cache (safe to rebuild).",
+          "example": "Remove-Item -Recurse -Force .next",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "reset-open-node-modules",
@@ -1045,7 +1207,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Checks whether node_modules exists.",
+          "example": "Get-ChildItem node_modules",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "reset-clear-npm-cache",
@@ -1063,7 +1228,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Clears npm cache (safe but can be slow).",
+          "example": "npm cache clean --force",
+          "commonMistake": "Running this in the wrong folder."
         }
       ]
     },
@@ -1088,7 +1256,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Deletes node_modules completely.",
+          "example": "Remove-Item -Recurse -Force node_modules",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "nuclear-remove-next",
@@ -1106,7 +1277,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Deletes the Next.js build cache.",
+          "example": "Remove-Item -Recurse -Force .next",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "nuclear-remove-lockfile",
@@ -1124,7 +1298,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Deletes the lock file so npm can rebuild it.",
+          "example": "Remove-Item package-lock.json",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "nuclear-git-reset-hard",
@@ -1142,7 +1319,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Throws away ALL local changes and resets to last commit.",
+          "example": "git reset --hard",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "nuclear-git-clean",
@@ -1160,7 +1340,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "any"
+          "platform": "any",
+          "whatItDoes": "Deletes ALL untracked files and folders.",
+          "example": "git clean -fd",
+          "commonMistake": "Running this in the wrong folder."
         },
         {
           "id": "nuclear-reinstall",
@@ -1178,7 +1361,10 @@ export const defaultPack: Pack = {
           "tags": [
             "reset"
           ],
-          "platform": "windows"
+          "platform": "windows",
+          "whatItDoes": "Full reset: delete dependencies and reinstall.",
+          "example": "Remove-Item -Recurse -Force node_modules; npm install",
+          "commonMistake": "Running this in the wrong folder."
         }
       ]
     }

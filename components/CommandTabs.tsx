@@ -36,6 +36,8 @@ function matchesQuery(item: CommandItem, query: string) {
     item.whenToUse ?? '',
     item.expectedResult ?? '',
     item.title ?? '',
+    item.example ?? '',
+    item.commonMistake ?? '',
     ...(item.ifItFails ?? []),
     ...(item.tags ?? [])
   ]
@@ -71,6 +73,7 @@ export default function CommandTabs({
   const [query, setQuery] = useState('');
   const [copyAllState, setCopyAllState] = useState<CopyState>('idle');
   const [platformFilter, setPlatformFilter] = useState<PlatformFilter>('windows');
+  const [beginnerMode, setBeginnerMode] = useState(true);
 
   const currentActiveId = activeId ?? internalActiveId;
 
@@ -148,6 +151,17 @@ export default function CommandTabs({
               </button>
             ))}
           </div>
+          <button
+            type="button"
+            onClick={() => setBeginnerMode((prev) => !prev)}
+            className={`rounded-xl px-3 py-2 text-xs font-semibold transition ${
+              beginnerMode
+                ? 'bg-moss-600 text-ink-950'
+                : 'bg-white/10 text-white hover:bg-white/20'
+            }`}
+          >
+            Beginner Mode {beginnerMode ? 'ON' : 'OFF'}
+          </button>
           <div className="relative">
             <input
               value={query}
@@ -216,7 +230,7 @@ export default function CommandTabs({
             </div>
           ) : (
             filteredItems.map((item) => (
-              <CommandCard key={item.id} item={item} />
+              <CommandCard key={item.id} item={item} beginnerMode={beginnerMode} />
             ))
           )}
         </div>
