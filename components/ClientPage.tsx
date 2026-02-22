@@ -8,7 +8,7 @@ import type { Pack } from '../data/schema';
 
 const STORAGE_KEY = 'command-panel-pack';
 
-export default function CommandPanel() {
+export default function ClientPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [pack, setPack] = useState<Pack>(() => getPackById('default'));
