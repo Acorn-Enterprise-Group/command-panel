@@ -25,7 +25,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - P0 | Learning | H) Add learning fields per command | RICE: R=6 I=3 C=0.7 E=3 | Done when each command shows what/when/example/mistake | Owner: Codex | Status: DONE
 - P0 | Learning | I) Beginner Mode toggle (default ON) | RICE: R=6 I=3 C=0.7 E=2 | Done when toggle hides help by default OFF | Owner: Codex | Status: DONE
 - P0 | Trust | J) About/Contact/Privacy pages | RICE: R=5 I=2 C=0.8 E=2 | Done when pages exist and are linked in footer | Owner: Codex | Status: DONE
-- P0 | Trust | K) Cookie notice only if analytics/ads | RICE: R=3 I=1 C=0.9 E=1 | Done when added only after analytics/ads | Owner: Codex | Status: TODO
+- P0 | Trust | K) Cookie notice only if analytics/ads | RICE: R=3 I=1 C=0.9 E=1 | Done when added only after analytics/ads | Owner: Codex | Status: DONE (deferred until analytics/ads)
 - P1 | Traffic | L) Indexable command pages | RICE: R=8 I=3 C=0.6 E=5 | Done when /git/git-clone style pages exist | Owner: Codex | Status: TODO
 - P1 | Traffic | M) Internal linking between commands | RICE: R=7 I=2.5 C=0.6 E=4 | Done when related/next links exist | Owner: Codex | Status: TODO
 - P1 | Learning | N) Start here onboarding page | RICE: R=6 I=2.5 C=0.7 E=3 | Done when beginner path exists | Owner: Codex | Status: TODO
@@ -41,6 +41,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - 2026-02-22: Added metadata/OG, sitemap/robots, canonical + www redirect. Next: learning layer fields + Beginner Mode (P0 H–I). Score: Traffic 58 / Learning 25 / Utility 34.
 - 2026-02-22: Added learning fields (what/when/example/mistake) and Beginner Mode toggle. Next: trust pages (P0 J). Score: Traffic 58 / Learning 45 / Utility 34.
 - 2026-02-22: Added About, Contact, and Privacy pages + footer links. Next: confirm cookie notice is deferred (P0 K). Score: Traffic 60 / Learning 45 / Utility 34.
+- 2026-02-22: Confirmed cookie notice deferred until analytics/ads. Next: stabilize build and validate Lighthouse basics. Score: Traffic 60 / Learning 45 / Utility 34.
 
 ## Weekly Execution Plan (Next 7 Days)
 - Day 1: P0 A hero clarity + CTA, update roadmap
