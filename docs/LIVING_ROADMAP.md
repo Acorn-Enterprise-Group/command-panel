@@ -1,0 +1,46 @@
+﻿# CopyCommand.org Living Roadmap
+
+## Vision
+CopyCommand.org is a fast, static-first command library that turns copyable snippets into a traffic engine, a beginner-friendly learning layer, and a daily dev utility. Every feature must directly improve Traffic, Learning, or Utility without adding backend complexity.
+
+## Success Metrics
+- Traffic: Organic sessions, search impressions, CTR, top 20 landing pages
+- Learning: Beginner Mode usage rate, help panel open rate, time to first successful command
+- Utility: Copy events per session, return visits, top commands used weekly
+
+## Current State Snapshot
+- Next.js 14 static-friendly UI with packs, commands, recipes, and copy buttons
+- Pack switching supported via query param and local storage
+- No backend, no accounts, no analytics, no ads
+- Build currently blocked by local OS `spawn EPERM` (needs environment fix)
+
+## Ranked Backlog
+- P0 | Traffic | A) Homepage hero clarity + single CTA | RICE: R=8 I=3 C=0.8 E=2 | Done when hero explains value in <3s and has 1 primary CTA | Owner: Codex | Status: TODO
+- P0 | Traffic | B) Site-wide navigation to categories | RICE: R=7 I=2.5 C=0.7 E=2 | Done when nav links to main categories and is visible on all pages | Owner: Codex | Status: TODO
+- P0 | Traffic | C) Client-side search across commands/packs | RICE: R=7 I=2.5 C=0.7 E=3 | Done when search finds commands across packs and results are visible | Owner: Codex | Status: TODO
+- P0 | Traffic | D) Metadata per page (title/description/OG) | RICE: R=9 I=2.5 C=0.7 E=2 | Done when pages have unique meta and OG tags | Owner: Codex | Status: TODO
+- P0 | Traffic | E) sitemap.xml + robots.txt | RICE: R=9 I=2 C=0.8 E=1 | Done when sitemap and robots are served | Owner: Codex | Status: TODO
+- P0 | Traffic | F) Canonical URLs + primary domain | RICE: R=8 I=2 C=0.6 E=2 | Done when canonical tags exist and domain rule documented | Owner: Codex | Status: TODO
+- P0 | Traffic | G) Lighthouse basics (perf/a11y) | RICE: R=6 I=2 C=0.6 E=3 | Done when obvious a11y/perf issues are fixed without redesign | Owner: Codex | Status: TODO
+- P0 | Learning | H) Add learning fields per command | RICE: R=6 I=3 C=0.7 E=3 | Done when each command shows what/when/example/mistake | Owner: Codex | Status: TODO
+- P0 | Learning | I) Beginner Mode toggle (default ON) | RICE: R=6 I=3 C=0.7 E=2 | Done when toggle hides help by default OFF | Owner: Codex | Status: TODO
+- P0 | Trust | J) About/Contact/Privacy pages | RICE: R=5 I=2 C=0.8 E=2 | Done when pages exist and are linked in footer | Owner: Codex | Status: TODO
+- P0 | Trust | K) Cookie notice only if analytics/ads | RICE: R=3 I=1 C=0.9 E=1 | Done when added only after analytics/ads | Owner: Codex | Status: TODO
+- P1 | Traffic | L) Indexable command pages | RICE: R=8 I=3 C=0.6 E=5 | Done when /git/git-clone style pages exist | Owner: Codex | Status: TODO
+- P1 | Traffic | M) Internal linking between commands | RICE: R=7 I=2.5 C=0.6 E=4 | Done when related/next links exist | Owner: Codex | Status: TODO
+- P1 | Learning | N) Start here onboarding page | RICE: R=6 I=2.5 C=0.7 E=3 | Done when beginner path exists | Owner: Codex | Status: TODO
+- P1 | Utility | O) Copy UX consistency + shortcut | RICE: R=6 I=2 C=0.6 E=3 | Done when copy is consistent and shortcut documented | Owner: Codex | Status: TODO
+- P1 | Utility | P) Copy pack as one block | RICE: R=5 I=2 C=0.7 E=2 | Done when pack has copy-all | Owner: Codex | Status: TODO
+- P1 | Utility | Q) Pack query param support | RICE: R=5 I=2 C=0.8 E=1 | Done when pack param works | Owner: Codex | Status: DONE
+
+## Changelog
+- 2026-02-22: Initialized living roadmap and recorded current state.
+
+## Weekly Execution Plan (Next 7 Days)
+- Day 1: P0 A hero clarity + CTA, update roadmap
+- Day 2: P0 B navigation, update roadmap
+- Day 3: P0 C global search, update roadmap
+- Day 4: P0 D–F metadata/sitemap/canonical, update roadmap
+- Day 5: P0 G lighthouse basics, update roadmap
+- Day 6: P0 H–I learning fields + beginner mode toggle, update roadmap
+- Day 7: P0 J trust pages, update roadmap
