@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import ThemeToggle from '../../../components/ThemeToggle';
 import { notFound } from 'next/navigation';
@@ -87,9 +88,23 @@ export default function CommandPage({
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-8 px-6 py-16">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <Link href={`/${packSlug}`} className="text-sm text-white/60 hover:text-white">
-          <- Back to {pack.title}
-        </Link>
+        <div className="flex flex-wrap items-center gap-3">
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo.png"
+              alt="CopyCommand"
+              width={144}
+              height={144}
+              className="h-9 w-auto drop-shadow-sm"
+            />
+          </Link>
+          <Link
+            href={`/${packSlug}`}
+            className="text-sm text-white/60 hover:text-white"
+          >
+            <- Back to {pack.title}
+          </Link>
+        </div>
         <div className="flex flex-wrap items-center gap-4">
           <span className="text-xs uppercase tracking-[0.3em] text-white/40">
             {pack.title}

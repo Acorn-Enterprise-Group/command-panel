@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import CommandTabs from './CommandTabs';
 import ThemeToggle from './ThemeToggle';
@@ -120,6 +122,16 @@ export default function ClientPage() {
       <header className="space-y-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-3">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/logo.png"
+                alt="CopyCommand"
+                width={144}
+                height={144}
+                className="h-9 w-auto drop-shadow-sm"
+                priority
+              />
+            </Link>
             <label
               htmlFor="pack-select"
               className="text-xs uppercase tracking-[0.3em] text-white/40"
@@ -147,6 +159,13 @@ export default function ClientPage() {
           </div>
         </div>
         <div className="space-y-4">
+          <Image
+            src="/logo.png"
+            alt="CopyCommand"
+            width={144}
+            height={144}
+            className="h-8 w-auto opacity-80 drop-shadow-sm"
+          />
           <h1 className="text-4xl font-semibold sm:text-5xl">
             Copy the exact command. Know what happens next.
           </h1>
