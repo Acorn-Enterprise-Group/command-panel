@@ -24,10 +24,10 @@ npm run build
 
 ## Edit commands
 
-Commands live inside packs in `data/packs`.
+Commands live inside `data/commands.ts` (single source of truth).
 
-- Edit `data/packs/default.ts` for the default pack.
-- Each pack has a `commands` array (individual command pages).
+- Edit `data/commands.ts` for the default pack.
+- `data/packs/default.ts` imports the command list and defines the pack shell.
 - Each command has `variants` (OS/shell-specific command text), a `defaultVariantKey`, and a `learning` block.
 - Tabs on the homepage are derived from the first value in `command.tools`.
 

@@ -1,7 +1,9 @@
 import type { Command, Pack } from './schema';
 import { defaultPack } from './packs/default';
+import { defaultCommands } from './commands';
 
 export const packs: Pack[] = [defaultPack];
+export const commands = defaultCommands;
 
 export function getPackById(id?: string | null): Pack {
   if (!id) return defaultPack;
