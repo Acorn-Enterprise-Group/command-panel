@@ -2,15 +2,18 @@
 
 import { useEffect, useState } from 'react';
 import { copyText } from '../lib/clipboard';
+import type { Level } from '../data/schema';
 
 type CopyState = 'idle' | 'copying' | 'copied' | 'error';
 
 export default function CopyButton({
   text,
-  label = 'Copy'
+  label = 'Copy',
+  level = 'safe'
 }: {
   text: string;
   label?: string;
+  level?: Level;
 }) {
   const [state, setState] = useState<CopyState>('idle');
 
@@ -45,6 +48,7 @@ export default function CopyButton({
             : 'bg-white text-ink-950 hover:bg-moss-500'
         }`}
         aria-label="Copy command to clipboard"
+        data-level={level}
       >
         <span className="text-base">{buttonText}</span>
         <svg
