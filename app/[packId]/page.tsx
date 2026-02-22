@@ -24,6 +24,8 @@ export function generateMetadata({
 export default function PackPage({ params }: { params: { packId: string } }) {
   const pack = getPackById(params.packId);
   const packSlug = encodeURIComponent(pack.id);
+  const firstSet = pack.sets[0];
+  const starter = firstSet?.items[0];
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-8 px-6 py-16">
@@ -32,6 +34,20 @@ export default function PackPage({ params }: { params: { packId: string } }) {
         <h1 className="text-3xl font-semibold">{pack.label}</h1>
         {pack.description && (
           <p className="text-white/70">{pack.description}</p>
+        )}
+        <p className="text-sm text-white/60">
+          This pack groups beginner-friendly commands. Start with the simplest
+          one, then move to the next.
+        </p>
+        {starter && (
+          <div className="pt-2">
+            <Link
+              href={`/${packSlug}/${encodeURIComponent(starter.id)}`}
+              className="inline-flex items-center gap-2 rounded-xl bg-moss-600 px-4 py-2 text-xs font-semibold text-ink-950 transition hover:bg-moss-500"
+            >
+              Start with {starter.command}
+            </Link>
+          </div>
         )}
       </div>
 
