@@ -32,30 +32,39 @@ export function generateMetadata({
 
 function getRelatedCommands(command: Command, list: Command[]): Command[] {
   const index = list.findIndex((item) => item.id === command.id);
-  const prev = index > 0 ? list[index - 1] : null;
-  const next = index >= 0 && index < list.length - 1 ? list[index + 1] : null;
+  const ordered = list.filter((item) => item.id !== command.id);
   const others = list.filter((item) => item.id !== command.id);
   const scoreTagOverlap = (candidate: Command) => {
     const overlap = candidate.tags.filter((tag) => command.tags.includes(tag));
     return overlap.length;
   };
 
-  const tagMatches = others
+  const tagMatches = ordered
     .filter((candidate) => scoreTagOverlap(candidate) > 0)
     .sort((a, b) => scoreTagOverlap(b) - scoreTagOverlap(a));
 
-  const adjacency = [prev, next].filter(Boolean) as Command[];
-  const ordered = [...adjacency, ...tagMatches, ...others];
+  const adjacency: Command[] = [];
+  if (index >= 0) {
+    for (let step = 1; step <= 3; step += 1) {
+      const nextIndex = (index + step) % list.length;
+      const candidate = list[nextIndex];
+      if (candidate && candidate.id !== command.id) {
+        adjacency.push(candidate);
+      }
+    }
+  }
+
+  const orderedByPriority = [...tagMatches, ...adjacency, ...others];
   const seen = new Set<string>();
   const deduped: Command[] = [];
-  ordered.forEach((item) => {
+  orderedByPriority.forEach((item) => {
     if (!seen.has(item.id)) {
       seen.add(item.id);
       deduped.push(item);
     }
   });
 
-  return deduped.slice(0, 4);
+  return deduped.slice(0, 3);
 }
 
 export default function CommandPage({

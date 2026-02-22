@@ -49,6 +49,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - 2026-02-22: Added authoritative sources for top commands. Next: variant default behavior + Windows run note. Score: Traffic 82 / Learning 50 / Utility 41.
 - 2026-02-22: Added deterministic variant fallback order. Next: document Windows PowerShell build/run fix. Score: Traffic 82 / Learning 50 / Utility 42.
 - 2026-02-22: Documented Windows PowerShell build/run workaround. Next: internal linking pass. Score: Traffic 82 / Learning 50 / Utility 43.
+- 2026-02-22: Refined related command linking (adjacency + tag overlap). Score: Traffic 84 / Learning 50 / Utility 44.
 
 ## Weekly Execution Plan (Next 7 Days)
 - Day 1: P0 A hero clarity + CTA, update roadmap
