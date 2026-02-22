@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const ROOT = path.resolve(__dirname, '..');
-const INPUT_PATH = path.join(ROOT, 'data', 'staging', 'commands.csv');
+const STAGING_DIR = path.join(ROOT, 'data', 'staging');
 const OUTPUT_PATH = path.join(ROOT, 'data', 'commands.generated.ts');
 
 const TOOL_IDS = new Set([
@@ -134,15 +134,31 @@ function inferTool(tags) {
   return tags.find((tag) => TOOL_IDS.has(tag)) ?? 'imported';
 }
 
-async function main() {
-  const raw = await readFile(INPUT_PATH, 'utf8');
-  const rows = parseCsv(raw);
-  if (rows.length < 2) {
-    throw new Error('CSV is empty or missing data rows.');
+async function loadStagingRows() {
+  const entries = await readdir(STAGING_DIR, { withFileTypes: true });
+  const files = entries
+    .filter((entry) => entry.isFile() && entry.name.endsWith('.csv'))
+    .map((entry) => entry.name)
+    .sort();
+
+  if (files.length === 0) {
+    throw new Error('No CSV files found in data/staging.');
   }
 
-  const headers = rows[0].map((header) => header.trim());
-  const headerIndex = new Map(headers.map((header, index) => [header, index]));
+  const rowsByFile = [];
+  for (const file of files) {
+    const raw = await readFile(path.join(STAGING_DIR, file), 'utf8');
+    const rows = parseCsv(raw);
+    if (rows.length < 2) {
+      throw new Error(`CSV ${file} is empty or missing data rows.`);
+    }
+    rowsByFile.push({ file, rows });
+  }
+
+  return rowsByFile;
+}
+
+async function main() {
   const requiredHeaders = [
     'id',
     'title',
@@ -154,100 +170,108 @@ async function main() {
     'sources'
   ];
 
-  const missingHeaders = requiredHeaders.filter((header) => !headerIndex.has(header));
-  if (missingHeaders.length > 0) {
-    throw new Error(`Missing required headers: ${missingHeaders.join(', ')}`);
-  }
-
+  const rowsByFile = await loadStagingRows();
   const errors = [];
   const warnings = [];
   const seenIds = new Set();
   const commands = [];
   const now = new Date().toISOString().slice(0, 10);
 
-  rows.slice(1).forEach((row, index) => {
-    const get = (key) => (row[headerIndex.get(key)] ?? '').trim();
-    const rawId = get('id');
-    const id = toKebabCase(rawId);
+  rowsByFile.forEach(({ file, rows }) => {
+    const headers = rows[0].map((header) => header.trim());
+    const headerIndex = new Map(headers.map((header, index) => [header, index]));
 
-    if (!rawId) {
-      errors.push(`Row ${index + 2}: id is required.`);
+    const missingHeaders = requiredHeaders.filter((header) => !headerIndex.has(header));
+    if (missingHeaders.length > 0) {
+      errors.push(`CSV ${file} missing headers: ${missingHeaders.join(', ')}`);
       return;
     }
-    if (rawId !== id) {
-      errors.push(`Row ${index + 2}: id must be kebab-case (got "${rawId}").`);
-      return;
-    }
-    if (seenIds.has(id)) {
-      errors.push(`Row ${index + 2}: duplicate id "${id}".`);
-      return;
-    }
-    seenIds.add(id);
 
-    const title = get('title');
-    const description = get('description');
-    const maclinuxCommand = get('maclinux_command');
-    const windowsCommand = get('windows_command');
+    rows.slice(1).forEach((row, index) => {
+      const rowLabel = `${file} row ${index + 2}`;
+      const get = (key) => (row[headerIndex.get(key)] ?? '').trim();
+      const rawId = get('id');
+      const id = toKebabCase(rawId);
 
-    if (!title) errors.push(`Row ${index + 2}: title is required.`);
-    if (!description) errors.push(`Row ${index + 2}: description is required.`);
-    if (!maclinuxCommand) errors.push(`Row ${index + 2}: maclinux_command is required.`);
-    if (!windowsCommand) errors.push(`Row ${index + 2}: windows_command is required.`);
+      if (!rawId) {
+        errors.push(`${rowLabel}: id is required.`);
+        return;
+      }
+      if (rawId !== id) {
+        errors.push(`${rowLabel}: id must be kebab-case (got "${rawId}").`);
+        return;
+      }
+      if (seenIds.has(id)) {
+        errors.push(`${rowLabel}: duplicate id "${id}".`);
+        return;
+      }
+      seenIds.add(id);
 
-    const tags = splitList(get('tags'), ',');
-    const mistakes = parseMistakes(get('commonMistakes'));
-    const sources = parseSources(get('sources'));
+      const title = get('title');
+      const description = get('description');
+      const maclinuxCommand = get('maclinux_command');
+      const windowsCommand = get('windows_command');
 
-    if (sources.length === 0) {
-      errors.push(`Row ${index + 2}: sources are required.`);
-    }
-    if (mistakes.length === 0) {
-      warnings.push(`Row ${index + 2}: commonMistakes is empty.`);
-    }
+      if (!title) errors.push(`${rowLabel}: title is required.`);
+      if (!description) errors.push(`${rowLabel}: description is required.`);
+      if (!maclinuxCommand) errors.push(`${rowLabel}: maclinux_command is required.`);
+      if (!windowsCommand) errors.push(`${rowLabel}: windows_command is required.`);
 
-    const tool = inferTool(tags);
-    const intent = inferIntent(tags);
+      const tags = splitList(get('tags'), ',');
+      const mistakes = parseMistakes(get('commonMistakes'));
+      const sources = parseSources(get('sources'));
 
-    commands.push({
-      id,
-      slug: id,
-      name: title,
-      primaryIntent: intent,
-      tools: [tool],
-      tags,
-      defaultVariantKey: 'windows:powershell',
-      variants: {
-        'windows:powershell': {
-          platform: 'windows',
-          shell: 'powershell',
-          command: windowsCommand
-        },
-        'mac:bash': {
-          platform: 'mac',
-          shell: 'bash',
-          command: maclinuxCommand
-        },
-        'linux:bash': {
-          platform: 'linux',
-          shell: 'bash',
-          command: maclinuxCommand
-        }
-      },
-      learning: {
-        whatItDoes: description,
-        whenToUse: `Use this when you need to ${description.toLowerCase()}.`,
-        examples: [
-          {
-            title: 'Basic example',
-            snippet: windowsCommand,
-            explanation: description
+      if (sources.length === 0) {
+        errors.push(`${rowLabel}: sources are required.`);
+      }
+      if (mistakes.length === 0) {
+        warnings.push(`${rowLabel}: commonMistakes is empty.`);
+      }
+
+      const tool = inferTool(tags);
+      const intent = inferIntent(tags);
+
+      commands.push({
+        id,
+        slug: id,
+        name: title,
+        primaryIntent: intent,
+        tools: [tool],
+        tags,
+        defaultVariantKey: 'windows:powershell',
+        variants: {
+          'windows:powershell': {
+            platform: 'windows',
+            shell: 'powershell',
+            command: windowsCommand
+          },
+          'mac:bash': {
+            platform: 'mac',
+            shell: 'bash',
+            command: maclinuxCommand
+          },
+          'linux:bash': {
+            platform: 'linux',
+            shell: 'bash',
+            command: maclinuxCommand
           }
-        ],
-        commonMistakes: mistakes,
-        warnings: []
-      },
-      sources,
-      lastReviewed: now
+        },
+        learning: {
+          whatItDoes: description,
+          whenToUse: `Use this when you need to ${description.toLowerCase()}.`,
+          examples: [
+            {
+              title: 'Basic example',
+              snippet: windowsCommand,
+              explanation: description
+            }
+          ],
+          commonMistakes: mistakes,
+          warnings: []
+        },
+        sources,
+        lastReviewed: now
+      });
     });
   });
 
