@@ -1,6 +1,7 @@
 import type { Command } from './schema';
+import { generatedCommands } from './commands.generated';
 
-export const defaultCommands: Command[] = [
+const baseCommands: Command[] = [
   {
     "id": "start-install",
     "slug": "start-install",
@@ -3033,3 +3034,37 @@ export const defaultCommands: Command[] = [
     "lastReviewed": "2026-02-22"
   }
 ];
+
+function mergeCommands(
+  base: Command[],
+  generated: Command[]
+): Command[] {
+  const map = new Map<string, Command>();
+  generated.forEach((command) => map.set(command.id, command));
+  base.forEach((command) => map.set(command.id, command));
+
+  const merged: Command[] = [];
+  const seen = new Set<string>();
+
+  base.forEach((command) => {
+    const item = map.get(command.id);
+    if (item && !seen.has(item.id)) {
+      merged.push(item);
+      seen.add(item.id);
+    }
+  });
+
+  generated.forEach((command) => {
+    if (!seen.has(command.id)) {
+      merged.push(command);
+      seen.add(command.id);
+    }
+  });
+
+  return merged;
+}
+
+export const defaultCommands: Command[] = mergeCommands(
+  baseCommands,
+  generatedCommands
+);
