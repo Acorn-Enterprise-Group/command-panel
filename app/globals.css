@@ -36,6 +36,69 @@ html:not(.theme-light):not(.theme-dark) body {
     linear-gradient(180deg, rgba(11, 15, 18, 0.92) 0%, rgba(11, 15, 18, 0.98) 60%, rgba(10, 12, 14, 1) 100%);
 }
 
+html.theme-light .text-white,
+html.theme-light .text-white\\/90,
+html.theme-light .text-white\\/80,
+html.theme-light .text-white\\/70,
+html.theme-light .text-white\\/60,
+html.theme-light .text-white\\/50,
+html.theme-light .text-white\\/40 {
+  color: rgba(15, 23, 42, 0.92);
+}
+
+html.theme-light .text-white\\/70 {
+  color: rgba(15, 23, 42, 0.7);
+}
+
+html.theme-light .text-white\\/60 {
+  color: rgba(15, 23, 42, 0.6);
+}
+
+html.theme-light .text-white\\/50 {
+  color: rgba(15, 23, 42, 0.5);
+}
+
+html.theme-light .text-white\\/40 {
+  color: rgba(15, 23, 42, 0.4);
+}
+
+html.theme-light .bg-ink-950 {
+  background-color: rgba(248, 250, 252, 1);
+}
+
+html.theme-light .bg-ink-900\\/95,
+html.theme-light .bg-ink-900\\/70,
+html.theme-light .bg-ink-900\\/60,
+html.theme-light .bg-ink-900\\/50,
+html.theme-light .bg-ink-900\\/40 {
+  background-color: rgba(226, 232, 240, 0.6);
+}
+
+html.theme-light .bg-ink-850,
+html.theme-light .bg-ink-800 {
+  background-color: rgba(226, 232, 240, 0.8);
+}
+
+html.theme-light .bg-ink-700 {
+  background-color: rgba(226, 232, 240, 1);
+}
+
+html.theme-light .border-white\\/10 {
+  border-color: rgba(15, 23, 42, 0.12);
+}
+
+html.theme-light .border-white\\/30 {
+  border-color: rgba(15, 23, 42, 0.24);
+}
+
+html.theme-light .bg-white {
+  background-color: rgba(15, 23, 42, 0.06);
+}
+
+html.theme-light .text-ink-950 {
+  color: #0f172a;
+}
+
 ::selection {
   background: rgba(110, 231, 183, 0.25);
 }
