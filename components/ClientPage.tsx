@@ -65,16 +65,26 @@ export default function ClientPage() {
         </div>
         <div className="space-y-4">
           <h1 className="text-4xl font-semibold sm:text-5xl">
-            Safe commands, zero anxiety.
+            Copy the exact command. Know what happens next.
           </h1>
           <p className="max-w-2xl text-lg text-white/70">
-            Click any command to copy it instantly. Use Show help when you need
-            extra guidance. Everything is written for beginners.
+            Find the right command fast, copy it safely, and see clear guidance if
+            you get stuck. Built for beginners and busy devs.
           </p>
+          <div>
+            <a
+              href="#commands"
+              className="inline-flex items-center gap-2 rounded-xl bg-moss-600 px-5 py-3 text-sm font-semibold text-ink-950 transition hover:bg-moss-500"
+            >
+              Start with Git
+            </a>
+          </div>
         </div>
       </header>
 
-      <CommandTabs pack={pack} />
+      <div id="commands">
+        <CommandTabs pack={pack} />
+      </div>
 
       <footer className="text-sm text-white/40">
         Tip: You can edit the commands in{' '}
