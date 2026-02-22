@@ -55,7 +55,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "npm install (CLI docs)",
+          "url": "https://docs.npmjs.com/cli/v10/commands/npm-install"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -105,7 +110,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "npm run-script (CLI docs)",
+          "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -155,7 +165,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "MDN: localhost",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#localhost"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -205,7 +220,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "npm run-script (CLI docs)",
+          "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -255,7 +275,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "npm run-script (CLI docs)",
+          "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -305,7 +330,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "npm run-script (CLI docs)",
+          "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -355,7 +385,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "Node.js CLI options",
+          "url": "https://nodejs.org/api/cli.html"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -405,7 +440,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "npm command (CLI docs)",
+          "url": "https://docs.npmjs.com/cli/v10/commands/npm"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -455,7 +495,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "npm install (CLI docs)",
+          "url": "https://docs.npmjs.com/cli/v10/commands/npm-install"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -496,7 +541,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "PowerShell Set-ExecutionPolicy",
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -537,7 +587,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "Microsoft netstat command",
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netstat"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -578,7 +633,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "Microsoft taskkill command",
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/taskkill"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -619,7 +679,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "PowerShell Remove-Item",
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -660,7 +725,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "PowerShell Remove-Item",
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -701,7 +771,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "PowerShell Remove-Item",
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -752,7 +827,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "npm install (CLI docs)",
+          "url": "https://docs.npmjs.com/cli/v10/commands/npm-install"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -803,7 +883,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "npm cache (CLI docs)",
+          "url": "https://docs.npmjs.com/cli/v10/commands/npm-cache"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -844,7 +929,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "GNU rm command",
+          "url": "https://www.gnu.org/software/coreutils/manual/html_node/rm-invocation.html"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -885,7 +975,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "GNU rm command",
+          "url": "https://www.gnu.org/software/coreutils/manual/html_node/rm-invocation.html"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -935,7 +1030,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "git status (official docs)",
+          "url": "https://git-scm.com/docs/git-status"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -985,7 +1085,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "git pull (official docs)",
+          "url": "https://git-scm.com/docs/git-pull"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -1035,7 +1140,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "git add (official docs)",
+          "url": "https://git-scm.com/docs/git-add"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -1085,7 +1195,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "git commit (official docs)",
+          "url": "https://git-scm.com/docs/git-commit"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {
@@ -1135,7 +1250,12 @@ export const defaultPack: Pack = {
         ],
         "warnings": []
       },
-      "sources": [],
+      "sources": [
+        {
+          "label": "git push (official docs)",
+          "url": "https://git-scm.com/docs/git-push"
+        }
+      ],
       "lastReviewed": "2026-02-22"
     },
     {

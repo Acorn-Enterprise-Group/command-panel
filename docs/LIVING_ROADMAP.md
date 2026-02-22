@@ -11,6 +11,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 ## Current State Snapshot
 - Next.js 14 static-friendly UI with packs, commands, copy buttons, and command pages
 - Pack switching supported via query param and local storage
+- Trust layer started: sources added for top commands
 - No backend, no accounts, no analytics, no ads
 - Build currently blocked locally by Windows PowerShell execution policy (needs session fix)
 
@@ -28,7 +29,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - P0 | Trust | K) Cookie notice only if analytics/ads | RICE: R=3 I=1 C=0.9 E=1 | Done when added only after analytics/ads | Owner: Codex | Status: DONE (deferred until analytics/ads)
 - P1 | Traffic | L) Indexable command pages | RICE: R=8 I=3 C=0.6 E=5 | Done when /git/git-clone style pages exist | Owner: Codex | Status: DONE
 - P1 | Traffic | M) Internal linking between commands | RICE: R=7 I=2.5 C=0.6 E=4 | Done when related/next links exist | Owner: Codex | Status: DONE
-- P1 | Learning | N) Start here onboarding page | RICE: R=6 I=2.5 C=0.7 E=3 | Done when beginner path exists | Owner: Codex | Status: TODO
+- P1 | Learning | N) Start here onboarding page | RICE: R=6 I=2.5 C=0.7 E=3 | Done when beginner path exists | Owner: Codex | Status: DONE
 - P1 | Utility | O) Copy UX consistency + shortcut | RICE: R=6 I=2 C=0.6 E=3 | Done when copy is consistent and shortcut documented | Owner: Codex | Status: TODO
 - P1 | Utility | P) Copy pack as one block | RICE: R=5 I=2 C=0.7 E=2 | Done when pack has copy-all | Owner: Codex | Status: TODO
 - P1 | Utility | Q) Pack query param support | RICE: R=5 I=2 C=0.8 E=1 | Done when pack param works | Owner: Codex | Status: DONE
@@ -45,6 +46,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - 2026-02-22: Added indexable pack and command pages, metadata, related links, and sitemap coverage. Score: Traffic 70 / Learning 45 / Utility 38.
 - 2026-02-22: Added pack intro with starter link, prev/next navigation, and related command links. Score: Traffic 78 / Learning 48 / Utility 40.
 - 2026-02-22: Moved living doc into docs/ as source-of-truth. Next: add sources trust layer. Score: Traffic 78 / Learning 48 / Utility 40.
+- 2026-02-22: Added authoritative sources for top commands. Next: variant default behavior + Windows run note. Score: Traffic 82 / Learning 50 / Utility 41.
 
 ## Weekly Execution Plan (Next 7 Days)
 - Day 1: P0 A hero clarity + CTA, update roadmap
