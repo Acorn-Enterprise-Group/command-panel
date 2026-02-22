@@ -2,12 +2,11 @@
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://copycommand.org';
-  return [
-    {
-      url: `${baseUrl}/`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1
-    }
-  ];
+  const pages = ['/', '/about', '/contact', '/privacy'];
+  return pages.map((path) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: path === '/' ? 1 : 0.6
+  }));
 }

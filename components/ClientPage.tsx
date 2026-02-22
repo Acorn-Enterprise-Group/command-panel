@@ -211,9 +211,22 @@ export default function ClientPage() {
         />
       </div>
 
-      <footer className="text-sm text-white/40">
-        Tip: You can edit the commands in{' '}
-        <span className="font-semibold text-white/70">data/packs</span>.
+      <footer className="flex flex-col gap-3 text-sm text-white/40 md:flex-row md:items-center md:justify-between">
+        <span>
+          Tip: You can edit the commands in{' '}
+          <span className="font-semibold text-white/70">data/packs</span>.
+        </span>
+        <div className="flex flex-wrap gap-4">
+          <a className="hover:text-white" href="/about">
+            About
+          </a>
+          <a className="hover:text-white" href="/contact">
+            Contact
+          </a>
+          <a className="hover:text-white" href="/privacy">
+            Privacy
+          </a>
+        </div>
       </footer>
     </main>
   );
