@@ -33,11 +33,12 @@ export default function CommandPage({
   const index = list.findIndex((item) => item.id === command.id);
   const prev = index > 0 ? list[index - 1] : null;
   const next = index >= 0 && index < list.length - 1 ? list[index + 1] : null;
+  const packSlug = encodeURIComponent(pack.id);
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-8 px-6 py-16">
       <div className="flex items-center justify-between">
-        <Link href={`/${pack.id}`} className="text-sm text-white/60 hover:text-white">
+        <Link href={`/${packSlug}`} className="text-sm text-white/60 hover:text-white">
           ← Back to {pack.label}
         </Link>
         <span className="text-xs uppercase tracking-[0.3em] text-white/40">
@@ -57,7 +58,7 @@ export default function CommandPage({
         <div className="grid gap-3 sm:grid-cols-2">
           {prev ? (
             <Link
-              href={`/${pack.id}/${prev.id}`}
+              href={`/${packSlug}/${encodeURIComponent(prev.id)}`}
               className="rounded-xl border border-white/10 bg-ink-900/60 px-4 py-3 text-sm text-white/90 hover:border-white/30"
             >
               <span className="text-xs text-white/50">Previous</span>
@@ -70,7 +71,7 @@ export default function CommandPage({
           )}
           {next ? (
             <Link
-              href={`/${pack.id}/${next.id}`}
+              href={`/${packSlug}/${encodeURIComponent(next.id)}`}
               className="rounded-xl border border-white/10 bg-ink-900/60 px-4 py-3 text-sm text-white/90 hover:border-white/30"
             >
               <span className="text-xs text-white/50">Next</span>

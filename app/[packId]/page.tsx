@@ -19,6 +19,7 @@ export function generateMetadata({
 
 export default function PackPage({ params }: { params: { packId: string } }) {
   const pack = getPackById(params.packId);
+  const packSlug = encodeURIComponent(pack.id);
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-8 px-6 py-16">
@@ -41,7 +42,7 @@ export default function PackPage({ params }: { params: { packId: string } }) {
               {set.items.map((item) => (
                 <li key={item.id}>
                   <Link
-                    href={`/${pack.id}/${item.id}`}
+                    href={`/${packSlug}/${encodeURIComponent(item.id)}`}
                     className="block rounded-xl border border-white/10 bg-ink-900/60 px-4 py-3 text-sm text-white/90 hover:border-white/30"
                   >
                     <span className="font-semibold text-white">{item.command}</span>
