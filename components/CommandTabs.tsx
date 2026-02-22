@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import CommandCard from './CommandCard';
 import { copyText } from '../lib/clipboard';
 import RecipesPanel from './RecipesPanel';
@@ -61,6 +61,12 @@ export default function CommandTabs({ pack }: { pack: Pack }) {
   const [query, setQuery] = useState('');
   const [copyAllState, setCopyAllState] = useState<CopyState>('idle');
   const [platformFilter, setPlatformFilter] = useState<PlatformFilter>('windows');
+
+  useEffect(() => {
+    setActiveId(pack.sets[0]?.id ?? '');
+    setQuery('');
+    setCopyAllState('idle');
+  }, [pack.id, pack.sets]);
 
   const activeSet = useMemo(
     () => pack.sets.find((set) => set.id === activeId),

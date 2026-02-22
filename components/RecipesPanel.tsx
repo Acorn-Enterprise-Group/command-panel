@@ -54,7 +54,11 @@ function RecipeStepCard({ step, index }: { step: RecipeStepWithCommand; index: n
   }
 
   if (!step.command) {
-    return null;
+    return (
+      <div className="rounded-2xl border border-rose-500/40 bg-rose-500/10 p-5 text-sm text-rose-100">
+        Step {index + 1}: Missing command reference.
+      </div>
+    );
   }
 
   return (
