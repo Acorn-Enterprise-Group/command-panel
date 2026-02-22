@@ -1,4 +1,4 @@
-﻿import fs from 'fs';
+import fs from 'fs';
 import path from 'path';
 import vm from 'vm';
 import { createRequire } from 'module';
@@ -46,6 +46,7 @@ const problems = [];
 
 let packs;
 let getPackById;
+let shouldShowVariantToggle;
 
 try {
   const indexModule = loadTsModule('data/index.ts');
@@ -55,14 +56,21 @@ try {
   problems.push(`Could not load data/index.ts: ${error.message}`);
 }
 
+try {
+  const variantModule = loadTsModule('lib/variants.ts');
+  shouldShowVariantToggle = variantModule.shouldShowVariantToggle;
+} catch (error) {
+  problems.push(`Could not load lib/variants.ts: ${error.message}`);
+}
+
 if (!Array.isArray(packs)) {
   problems.push('packs did not load as an array.');
 } else {
   const packIds = new Set();
 
   packs.forEach((pack, packIndex) => {
-    if (!pack.id || !pack.label) {
-      problems.push(`Pack at index ${packIndex} is missing id or label.`);
+    if (!pack.id || !pack.slug || !pack.title) {
+      problems.push(`Pack at index ${packIndex} is missing id, slug, or title.`);
       return;
     }
 
@@ -71,84 +79,94 @@ if (!Array.isArray(packs)) {
     }
     packIds.add(pack.id);
 
-    if (!Array.isArray(pack.sets)) {
-      problems.push(`Pack ${pack.id} has no sets array.`);
+    if (!Array.isArray(pack.commands)) {
+      problems.push(`Pack ${pack.id} has no commands array.`);
       return;
     }
 
     const commandIds = new Set();
+    const commandSlugs = new Set();
 
-    pack.sets.forEach((set, setIndex) => {
-      if (!set.id || !set.label) {
+    pack.commands.forEach((command, commandIndex) => {
+      if (!command.id || !command.slug || !command.name) {
         problems.push(
-          `Command set at index ${setIndex} in pack ${pack.id} is missing id or label.`
+          `Command at index ${commandIndex} in pack ${pack.id} is missing id, slug, or name.`
         );
       }
 
-      if (!Array.isArray(set.items)) {
-        problems.push(`Command set ${set.id} in pack ${pack.id} has no items array.`);
-        return;
+      if (commandIds.has(command.id)) {
+        problems.push(`Duplicate command id found in pack ${pack.id}: ${command.id}`);
+      } else {
+        commandIds.add(command.id);
       }
 
-      set.items.forEach((item, itemIndex) => {
-        if (!item.id) {
-          problems.push(
-            `Item at index ${itemIndex} in set ${set.id} is missing id.`
-          );
-        } else if (commandIds.has(item.id)) {
-          problems.push(`Duplicate command id found in pack ${pack.id}: ${item.id}`);
-        } else {
-          commandIds.add(item.id);
-        }
+      if (commandSlugs.has(command.slug)) {
+        problems.push(`Duplicate command slug found in pack ${pack.id}: ${command.slug}`);
+      } else {
+        commandSlugs.add(command.slug);
+      }
 
-        if (!item.explain || !item.command) {
-          problems.push(
-            `Item ${item.id || itemIndex} in set ${set.id} is missing explain or command.`
-          );
-        }
+      if (!command.defaultVariantKey || !command.variants) {
+        problems.push(`Command ${command.id} is missing defaultVariantKey or variants.`);
+      } else if (!command.variants[command.defaultVariantKey]) {
+        problems.push(
+          `Command ${command.id} has defaultVariantKey that does not exist: ${command.defaultVariantKey}`
+        );
+      }
 
-        if (!item.whatItDoes || !item.example || !item.commonMistake) {
-          problems.push(
-            `Item ${item.id || itemIndex} in set ${set.id} is missing whatItDoes, example, or commonMistake.`
-          );
-        }
-      });
+      if (!command.learning?.whatItDoes || !command.learning?.whenToUse) {
+        problems.push(
+          `Command ${command.id} is missing learning.whatItDoes or learning.whenToUse.`
+        );
+      }
     });
-
-    if (Array.isArray(pack.recipes)) {
-      const recipeIds = new Set();
-
-      pack.recipes.forEach((recipe, recipeIndex) => {
-        if (!recipe.id || !recipe.title || !Array.isArray(recipe.steps)) {
-          problems.push(
-            `Recipe at index ${recipeIndex} in pack ${pack.id} is missing id, title, or steps.`
-          );
-          return;
-        }
-
-        if (recipeIds.has(recipe.id)) {
-          problems.push(`Duplicate recipe id found in pack ${pack.id}: ${recipe.id}`);
-        }
-        recipeIds.add(recipe.id);
-
-        recipe.steps
-          .filter((step) => step.type === 'command')
-          .forEach((step) => {
-            if (!commandIds.has(step.commandId)) {
-              problems.push(
-                `Recipe ${recipe.id} references unknown command id in pack ${pack.id}: ${step.commandId}`
-              );
-            }
-          });
-      });
-    } else {
-      problems.push(`Pack ${pack.id} recipes did not load as an array.`);
-    }
   });
 }
 
 if (typeof getPackById !== 'function') {
   problems.push('getPackById was not exported as a function.');
+}
+
+if (typeof shouldShowVariantToggle === 'function') {
+  const fakeCommand = {
+    id: 'test',
+    slug: 'test',
+    name: 'test',
+    primaryIntent: 'do',
+    tools: [],
+    tags: [],
+    defaultVariantKey: 'mac:bash',
+    variants: {
+      'mac:bash': { platform: 'mac', shell: 'bash', command: 'npm install' },
+      'windows:powershell': {
+        platform: 'windows',
+        shell: 'powershell',
+        command: 'npm install'
+      }
+    },
+    learning: {
+      whatItDoes: 'Test',
+      whenToUse: 'Test',
+      examples: [],
+      commonMistakes: []
+    },
+    sources: [],
+    lastReviewed: '2026-02-22'
+  };
+
+  if (shouldShowVariantToggle(fakeCommand) !== false) {
+    problems.push('Variant toggle should be hidden when commands are identical.');
+  }
+} else {
+  problems.push('shouldShowVariantToggle was not exported as a function.');
+}
+
+if (!fs.existsSync('components/CopyButton.tsx')) {
+  problems.push('CopyButton component is missing.');
+}
+
+if (!fs.existsSync('app/[packId]/[commandId]/page.tsx')) {
+  problems.push('Command page route file is missing.');
 }
 
 if (problems.length) {
