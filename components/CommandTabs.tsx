@@ -1,10 +1,10 @@
 ﻿'use client';
 
 import { useMemo, useState } from 'react';
-import { commandSets, CommandItem, CommandPlatform } from '../data/commandSets';
 import CommandCard from './CommandCard';
 import { copyText } from '../lib/clipboard';
 import RecipesPanel from './RecipesPanel';
+import type { CommandItem, CommandSet, Pack, Platform } from '../data/schema';
 
 const platformOptions = [
   { id: 'windows', label: 'Windows PowerShell' },
@@ -20,17 +20,8 @@ type Tab = {
   description?: string;
 };
 
-const tabs: Tab[] = [
-  ...commandSets.map((set) => ({
-    id: set.id,
-    label: set.label,
-    description: set.description
-  })),
-  { id: 'recipes', label: 'Recipes', description: 'Guided step-by-step flows.' }
-];
-
 function matchesPlatform(item: CommandItem, filter: PlatformFilter) {
-  const platform: CommandPlatform = item.platform ?? 'any';
+  const platform: Platform = item.platform ?? 'any';
   if (filter === 'windows') return platform === 'any' || platform === 'windows';
   return platform === 'any' || platform === 'mac' || platform === 'linux';
 }
@@ -53,15 +44,27 @@ function matchesQuery(item: CommandItem, query: string) {
   return bucket.includes(q);
 }
 
-export default function CommandTabs() {
-  const [activeId, setActiveId] = useState(commandSets[0]?.id ?? '');
+function buildTabs(sets: CommandSet[]) {
+  return [
+    ...sets.map((set) => ({
+      id: set.id,
+      label: set.label,
+      description: set.description
+    })),
+    { id: 'recipes', label: 'Recipes', description: 'Guided step-by-step flows.' }
+  ];
+}
+
+export default function CommandTabs({ pack }: { pack: Pack }) {
+  const tabs = useMemo(() => buildTabs(pack.sets), [pack.sets]);
+  const [activeId, setActiveId] = useState(pack.sets[0]?.id ?? '');
   const [query, setQuery] = useState('');
   const [copyAllState, setCopyAllState] = useState<CopyState>('idle');
   const [platformFilter, setPlatformFilter] = useState<PlatformFilter>('windows');
 
   const activeSet = useMemo(
-    () => commandSets.find((set) => set.id === activeId),
-    [activeId]
+    () => pack.sets.find((set) => set.id === activeId),
+    [activeId, pack.sets]
   );
 
   const filteredItems = useMemo(() => {
@@ -158,6 +161,10 @@ export default function CommandTabs() {
         </div>
       </div>
 
+      <p className="text-sm text-white/60">
+        Showing {platformFilter === 'windows' ? 'Windows' : 'Mac/Linux'} commands
+      </p>
+
       {activeSet ? (
         <div className="rounded-2xl border border-white/10 bg-ink-900/50 p-6">
           <div className="flex flex-col gap-2">
@@ -191,7 +198,11 @@ export default function CommandTabs() {
           )}
         </div>
       ) : (
-        <RecipesPanel query={query} platformFilter={platformFilter} />
+        <RecipesPanel
+          pack={pack}
+          query={query}
+          platformFilter={platformFilter}
+        />
       )}
     </div>
   );

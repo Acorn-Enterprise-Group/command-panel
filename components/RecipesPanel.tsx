@@ -1,19 +1,20 @@
 ﻿'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { commandSets, CommandItem, CommandPlatform } from '../data/commandSets';
-import { recipes } from '../data/recipes';
 import { copyText } from '../lib/clipboard';
 import CopyButton from './CopyButton';
+import type { CommandItem, Pack, Platform, RecipeStep } from '../data/schema';
 
 type PlatformFilter = 'windows' | 'unix';
 
 type CopyState = 'idle' | 'copied' | 'error';
 
-function matchesRecipePlatform(
-  platform: CommandPlatform | undefined,
-  filter: PlatformFilter
-) {
+type RecipeStepWithCommand = {
+  step: RecipeStep;
+  command?: CommandItem;
+};
+
+function matchesRecipePlatform(platform: Platform | undefined, filter: PlatformFilter) {
   const value = platform ?? 'any';
   if (filter === 'windows') return value === 'any' || value === 'windows';
   return value === 'any' || value === 'mac' || value === 'linux';
@@ -23,22 +24,39 @@ function matchesRecipeQuery(
   query: string,
   recipeTitle: string,
   recipeIntro: string,
-  commands: CommandItem[]
+  steps: RecipeStepWithCommand[]
 ) {
   const q = query.trim().toLowerCase();
   if (!q) return true;
   const bucket = [
     recipeTitle,
     recipeIntro,
-    ...commands.map((cmd) => cmd.command),
-    ...commands.map((cmd) => cmd.explain)
+    ...steps.map((step) => (step.command ? step.command.command : '')),
+    ...steps.map((step) => (step.command ? step.command.explain : '')),
+    ...steps.map((step) => (step.step.type === 'text' ? step.step.body : ''))
   ]
     .join(' ')
     .toLowerCase();
   return bucket.includes(q);
 }
 
-function RecipeStepCard({ step, index }: { step: CommandItem; index: number }) {
+function RecipeStepCard({ step, index }: { step: RecipeStepWithCommand; index: number }) {
+  if (step.step.type === 'text') {
+    return (
+      <div className="rounded-2xl border border-white/10 bg-ink-900/70 p-5">
+        <p className="text-xs uppercase tracking-[0.3em] text-white/40">
+          Step {index + 1}
+        </p>
+        <p className="mt-3 text-lg font-semibold">{step.step.title}</p>
+        <p className="mt-2 text-sm text-white/70">{step.step.body}</p>
+      </div>
+    );
+  }
+
+  if (!step.command) {
+    return null;
+  }
+
   return (
     <div className="rounded-2xl border border-white/10 bg-ink-900/70 p-5">
       <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
@@ -46,18 +64,22 @@ function RecipeStepCard({ step, index }: { step: CommandItem; index: number }) {
           <p className="text-xs uppercase tracking-[0.3em] text-white/40">
             Step {index + 1}
           </p>
-          <p className="text-base text-white/90">{step.explain}</p>
+          <p className="text-base text-white/90">{step.command.explain}</p>
         </div>
-        <CopyButton text={step.copyAs ?? step.command} label="Copy step" />
+        <CopyButton
+          text={step.command.copyAs ?? step.command.command}
+          label="Copy step"
+          level={step.command.level}
+        />
       </div>
       <div className="mt-4 overflow-hidden rounded-xl border border-white/10 bg-ink-850">
         <div className="flex items-center justify-between border-b border-white/10 bg-ink-800 px-4 py-2">
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-moss-500">
-            {step.shellLabel}
+            {step.command.shellLabel}
           </span>
         </div>
         <pre className="overflow-x-auto px-5 py-4 text-lg font-mono text-white">
-          <code>{step.command}</code>
+          <code>{step.command.command}</code>
         </pre>
       </div>
     </div>
@@ -65,30 +87,39 @@ function RecipeStepCard({ step, index }: { step: CommandItem; index: number }) {
 }
 
 export default function RecipesPanel({
+  pack,
   query,
   platformFilter
 }: {
+  pack: Pack;
   query: string;
   platformFilter: PlatformFilter;
 }) {
   const commandMap = useMemo(() => {
     const map = new Map<string, CommandItem>();
-    commandSets.forEach((set) => {
+    pack.sets.forEach((set) => {
       set.items.forEach((item) => map.set(item.id, item));
     });
     return map;
-  }, []);
+  }, [pack.sets]);
+
+  const hydratedRecipes = useMemo(() => {
+    return pack.recipes.map((recipe) => {
+      const steps = recipe.steps.map((step) => {
+        if (step.type === 'command') {
+          return { step, command: commandMap.get(step.commandId) };
+        }
+        return { step };
+      });
+      return { ...recipe, steps };
+    });
+  }, [pack.recipes, commandMap]);
 
   const filteredRecipes = useMemo(() => {
-    return recipes
+    return hydratedRecipes
       .filter((recipe) => matchesRecipePlatform(recipe.platform, platformFilter))
-      .filter((recipe) => {
-        const commands = recipe.commandIds
-          .map((id) => commandMap.get(id))
-          .filter(Boolean) as CommandItem[];
-        return matchesRecipeQuery(query, recipe.title, recipe.intro, commands);
-      });
-  }, [commandMap, platformFilter, query]);
+      .filter((recipe) => matchesRecipeQuery(query, recipe.title, recipe.intro, recipe.steps));
+  }, [hydratedRecipes, platformFilter, query]);
 
   const [activeRecipeId, setActiveRecipeId] = useState(
     filteredRecipes[0]?.id ?? ''
@@ -104,18 +135,15 @@ export default function RecipesPanel({
     (recipe) => recipe.id === activeRecipeId
   );
 
-  const steps: CommandItem[] = useMemo(() => {
-    if (!activeRecipe) return [];
-    return activeRecipe.commandIds
-      .map((id) => commandMap.get(id))
-      .filter(Boolean) as CommandItem[];
-  }, [activeRecipe, commandMap]);
-
   const [copyState, setCopyState] = useState<CopyState>('idle');
 
   const handleCopyRecipe = async () => {
     if (!activeRecipe) return;
-    const payload = steps.map((step) => step.copyAs ?? step.command).join('\n');
+    const payload = activeRecipe.steps
+      .filter((step) => step.step.type === 'command' && step.command)
+      .map((step) => step.command?.copyAs ?? step.command?.command)
+      .filter(Boolean)
+      .join('\n');
     const ok = await copyText(payload);
     setCopyState(ok ? 'copied' : 'error');
     setTimeout(() => setCopyState('idle'), 2000);
@@ -181,8 +209,12 @@ export default function RecipesPanel({
         </div>
 
         <div className="grid gap-4">
-          {steps.map((step, index) => (
-            <RecipeStepCard key={`${step.id}-step`} step={step} index={index} />
+          {activeRecipe?.steps.map((step, index) => (
+            <RecipeStepCard
+              key={step.step.id}
+              step={step}
+              index={index}
+            />
           ))}
         </div>
       </div>
