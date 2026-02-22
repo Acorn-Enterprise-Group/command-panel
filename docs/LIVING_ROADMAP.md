@@ -26,7 +26,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - P0 | Learning | I) Beginner Mode toggle (default ON) | RICE: R=6 I=3 C=0.7 E=2 | Done when toggle hides help by default OFF | Owner: Codex | Status: DONE
 - P0 | Trust | J) About/Contact/Privacy pages | RICE: R=5 I=2 C=0.8 E=2 | Done when pages exist and are linked in footer | Owner: Codex | Status: DONE
 - P0 | Trust | K) Cookie notice only if analytics/ads | RICE: R=3 I=1 C=0.9 E=1 | Done when added only after analytics/ads | Owner: Codex | Status: DONE (deferred until analytics/ads)
-- P1 | Traffic | L) Indexable command pages | RICE: R=8 I=3 C=0.6 E=5 | Done when /git/git-clone style pages exist | Owner: Codex | Status: TODO
+- P1 | Traffic | L) Indexable command pages | RICE: R=8 I=3 C=0.6 E=5 | Done when /git/git-clone style pages exist | Owner: Codex | Status: DOING
 - P1 | Traffic | M) Internal linking between commands | RICE: R=7 I=2.5 C=0.6 E=4 | Done when related/next links exist | Owner: Codex | Status: TODO
 - P1 | Learning | N) Start here onboarding page | RICE: R=6 I=2.5 C=0.7 E=3 | Done when beginner path exists | Owner: Codex | Status: TODO
 - P1 | Utility | O) Copy UX consistency + shortcut | RICE: R=6 I=2 C=0.6 E=3 | Done when copy is consistent and shortcut documented | Owner: Codex | Status: TODO
