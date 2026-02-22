@@ -8,6 +8,17 @@ const ts = require('typescript');
 
 function loadTsModule(fileName) {
   const filePath = path.resolve(fileName);
+  const localRequire = createRequire(filePath);
+  const smartRequire = (specifier) => {
+    if (specifier.startsWith('.')) {
+      const basePath = path.resolve(path.dirname(filePath), specifier);
+      const tsPath = basePath.endsWith('.ts') ? basePath : `${basePath}.ts`;
+      if (fs.existsSync(tsPath)) {
+        return loadTsModule(tsPath);
+      }
+    }
+    return localRequire(specifier);
+  };
   const source = fs.readFileSync(filePath, 'utf8');
   const transpiled = ts.transpileModule(source, {
     compilerOptions: {
@@ -19,7 +30,7 @@ function loadTsModule(fileName) {
   const sandbox = {
     module: { exports: {} },
     exports: {},
-    require,
+    require: smartRequire,
     console
   };
 

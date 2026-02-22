@@ -1,6 +1,6 @@
-﻿# Command Panel (Beginner Mode)
+﻿# Command Panel V2
 
-A tiny, beginner-friendly command panel with large copy buttons, safety labels, and optional help.
+A tiny, beginner-friendly command panel with pack switching, safety labels, and optional help.
 
 ## Run locally
 
@@ -24,31 +24,35 @@ npm run build
 
 ## Edit commands
 
-All commands live in `data/commandSets.ts`.
+Commands live inside packs in `data/packs`.
 
-- Add or remove tabs by editing the `commandSets` array.
-- Each tab has `items`, which are individual command cards.
-- Required fields per command: `id`, `explain`, `command`, `shellLabel`.
-- Optional fields power the help drawer: `whenToUse`, `expectedResult`, `ifItFails`, `notes`.
-- Add `level` to show safety badges: `safe`, `caution`, or `danger`.
-- Add `platform` to control the Windows vs Mac/Linux filter.
+- Edit `data/packs/default.ts` for the default pack.
+- Each pack has `sets`, which are the tab groups.
+- Each set has `items`, which are individual command cards.
+- Required fields per command: `id`, `explain`, `command`, `shellLabel`, `level`, `platform`, `whenToUse`, `expectedResult`, `ifItFails`.
+- Optional fields: `title`, `notes`, `tags`, `copyAs`.
 
 ## Add recipes
 
-Recipes live in `data/recipes.ts`.
+Recipes live inside a pack file (ex: `data/packs/default.ts`).
 
 Each recipe:
 
 - `id`: unique identifier
 - `title`: short name
 - `intro`: 1 paragraph description
-- `commandIds`: list of command ids from `data/commandSets.ts`
+- `steps`: list of command steps (`type: 'command'`) or text steps (`type: 'text'`)
 - `platform`: optional filter (`windows`, `mac`, `linux`, `any`)
 
-## Add a new tab
+## Add a new pack
 
-1. Open `data/commandSets.ts`.
-2. Add a new object to the `commandSets` array.
+1. Create `data/packs/<your-pack>.ts` exporting a `Pack`.
+2. Register it in `data/index.ts` by adding it to the `packs` array.
+
+## Add a new tab (set)
+
+1. Open your pack file (ex: `data/packs/default.ts`).
+2. Add a new object to the `sets` array.
 3. Give it a unique `id`, `label`, and an `items` array.
 
 ## Smoke check
@@ -58,6 +62,14 @@ npm run smoke
 ```
 
 Checks that command ids are unique and required fields exist.
+
+## Pack switching
+
+Use the `pack` query param:
+
+```
+/?pack=default
+```
 
 ## Deploy
 
