@@ -27,7 +27,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - P0 | Trust | J) About/Contact/Privacy pages | RICE: R=5 I=2 C=0.8 E=2 | Done when pages exist and are linked in footer | Owner: Codex | Status: DONE
 - P0 | Trust | K) Cookie notice only if analytics/ads | RICE: R=3 I=1 C=0.9 E=1 | Done when added only after analytics/ads | Owner: Codex | Status: DONE (deferred until analytics/ads)
 - P1 | Traffic | L) Indexable command pages | RICE: R=8 I=3 C=0.6 E=5 | Done when /git/git-clone style pages exist | Owner: Codex | Status: DONE
-- P1 | Traffic | M) Internal linking between commands | RICE: R=7 I=2.5 C=0.6 E=4 | Done when related/next links exist | Owner: Codex | Status: TODO
+- P1 | Traffic | M) Internal linking between commands | RICE: R=7 I=2.5 C=0.6 E=4 | Done when related/next links exist | Owner: Codex | Status: DONE
 - P1 | Learning | N) Start here onboarding page | RICE: R=6 I=2.5 C=0.7 E=3 | Done when beginner path exists | Owner: Codex | Status: TODO
 - P1 | Utility | O) Copy UX consistency + shortcut | RICE: R=6 I=2 C=0.6 E=3 | Done when copy is consistent and shortcut documented | Owner: Codex | Status: TODO
 - P1 | Utility | P) Copy pack as one block | RICE: R=5 I=2 C=0.7 E=2 | Done when pack has copy-all | Owner: Codex | Status: TODO
@@ -43,6 +43,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - 2026-02-22: Added About, Contact, and Privacy pages + footer links. Next: confirm cookie notice is deferred (P0 K). Score: Traffic 60 / Learning 45 / Utility 34.
 - 2026-02-22: Confirmed cookie notice deferred until analytics/ads. Next: stabilize build and validate Lighthouse basics. Score: Traffic 60 / Learning 45 / Utility 34.
 - 2026-02-22: Added indexable pack and command pages, metadata, related links, and sitemap coverage. Score: Traffic 70 / Learning 45 / Utility 38.
+- 2026-02-22: Added pack intro with starter link, prev/next navigation, and related command links. Score: Traffic 78 / Learning 48 / Utility 40.
 
 ## Weekly Execution Plan (Next 7 Days)
 - Day 1: P0 A hero clarity + CTA, update roadmap
