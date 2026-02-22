@@ -55,22 +55,34 @@ function buildTabs(sets: CommandSet[]) {
   ];
 }
 
-export default function CommandTabs({ pack }: { pack: Pack }) {
+export default function CommandTabs({
+  pack,
+  activeId,
+  onActiveChange
+}: {
+  pack: Pack;
+  activeId?: string;
+  onActiveChange?: (id: string) => void;
+}) {
   const tabs = useMemo(() => buildTabs(pack.sets), [pack.sets]);
-  const [activeId, setActiveId] = useState(pack.sets[0]?.id ?? '');
+  const [internalActiveId, setInternalActiveId] = useState(
+    pack.sets[0]?.id ?? ''
+  );
   const [query, setQuery] = useState('');
   const [copyAllState, setCopyAllState] = useState<CopyState>('idle');
   const [platformFilter, setPlatformFilter] = useState<PlatformFilter>('windows');
 
+  const currentActiveId = activeId ?? internalActiveId;
+
   useEffect(() => {
-    setActiveId(pack.sets[0]?.id ?? '');
+    setInternalActiveId(pack.sets[0]?.id ?? '');
     setQuery('');
     setCopyAllState('idle');
   }, [pack.id, pack.sets]);
 
   const activeSet = useMemo(
-    () => pack.sets.find((set) => set.id === activeId),
-    [activeId, pack.sets]
+    () => pack.sets.find((set) => set.id === currentActiveId),
+    [currentActiveId, pack.sets]
   );
 
   const filteredItems = useMemo(() => {
@@ -90,6 +102,11 @@ export default function CommandTabs({ pack }: { pack: Pack }) {
     setTimeout(() => setCopyAllState('idle'), 2000);
   };
 
+  const handleTabChange = (id: string) => {
+    setInternalActiveId(id);
+    onActiveChange?.(id);
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -98,13 +115,13 @@ export default function CommandTabs({ pack }: { pack: Pack }) {
             <button
               key={tab.id}
               role="tab"
-              aria-selected={activeId === tab.id}
+              aria-selected={currentActiveId === tab.id}
               onClick={() => {
-                setActiveId(tab.id);
+                handleTabChange(tab.id);
                 setCopyAllState('idle');
               }}
               className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
-                activeId === tab.id
+                currentActiveId === tab.id
                   ? 'bg-moss-600 text-ink-950'
                   : 'bg-white/5 text-white hover:bg-white/10'
               }`}

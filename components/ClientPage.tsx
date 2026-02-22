@@ -12,18 +12,22 @@ export default function ClientPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [pack, setPack] = useState<Pack>(() => getPackById('default'));
+  const [activeTabId, setActiveTabId] = useState<string>('');
 
   useEffect(() => {
     const queryPack = searchParams.get('pack');
     const storedPack =
       typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;
     const desired = queryPack ?? storedPack ?? 'default';
-    setPack(getPackById(desired));
+    const nextPack = getPackById(desired);
+    setPack(nextPack);
+    setActiveTabId(nextPack.sets[0]?.id ?? '');
   }, [searchParams]);
 
   const handlePackChange = (nextId: string) => {
     const nextPack = getPackById(nextId);
     setPack(nextPack);
+    setActiveTabId(nextPack.sets[0]?.id ?? '');
     if (typeof window !== 'undefined') {
       localStorage.setItem(STORAGE_KEY, nextPack.id);
     }
@@ -31,6 +35,14 @@ export default function ClientPage() {
     const params = new URLSearchParams(searchParams.toString());
     params.set('pack', nextPack.id);
     router.replace(`/?${params.toString()}`);
+  };
+
+  const handleCategoryClick = (categoryId: string) => {
+    setActiveTabId(categoryId);
+    const commands = document.getElementById('commands');
+    if (commands) {
+      commands.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const packOptions = useMemo(() => packs, []);
@@ -80,10 +92,30 @@ export default function ClientPage() {
             </a>
           </div>
         </div>
+        <nav className="flex flex-wrap gap-2">
+          {pack.sets.map((set) => (
+            <button
+              key={set.id}
+              type="button"
+              onClick={() => handleCategoryClick(set.id)}
+              className={`rounded-full px-4 py-2 text-xs font-semibold transition ${
+                activeTabId === set.id
+                  ? 'bg-white text-ink-950'
+                  : 'bg-white/5 text-white hover:bg-white/10'
+              }`}
+            >
+              {set.label}
+            </button>
+          ))}
+        </nav>
       </header>
 
       <div id="commands">
-        <CommandTabs pack={pack} />
+        <CommandTabs
+          pack={pack}
+          activeId={activeTabId}
+          onActiveChange={setActiveTabId}
+        />
       </div>
 
       <footer className="text-sm text-white/40">
