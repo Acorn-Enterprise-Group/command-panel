@@ -33,92 +33,105 @@ function loadTsModule(fileName) {
 
 const problems = [];
 
-let commandSets;
-let recipes;
+let packs;
+let getPackById;
 
 try {
-  const commandModule = loadTsModule('data/commandSets.ts');
-  commandSets = commandModule.commandSets;
+  const indexModule = loadTsModule('data/index.ts');
+  packs = indexModule.packs;
+  getPackById = indexModule.getPackById;
 } catch (error) {
-  problems.push(`Could not load data/commandSets.ts: ${error.message}`);
+  problems.push(`Could not load data/index.ts: ${error.message}`);
 }
 
-try {
-  const recipeModule = loadTsModule('data/recipes.ts');
-  recipes = recipeModule.recipes;
-} catch (error) {
-  problems.push(`Could not load data/recipes.ts: ${error.message}`);
-}
-
-if (!Array.isArray(commandSets)) {
-  problems.push('commandSets did not load as an array.');
+if (!Array.isArray(packs)) {
+  problems.push('packs did not load as an array.');
 } else {
-  const commandSetIds = new Set();
-  const commandIds = new Set();
+  const packIds = new Set();
 
-  commandSets.forEach((set, setIndex) => {
-    if (!set.id || !set.label) {
-      problems.push(`Command set at index ${setIndex} is missing id or label.`);
-    }
-
-    if (set.id) {
-      if (commandSetIds.has(set.id)) {
-        problems.push(`Duplicate command set id found: ${set.id}`);
-      }
-      commandSetIds.add(set.id);
-    }
-
-    if (!Array.isArray(set.items)) {
-      problems.push(`Command set ${set.id} has no items array.`);
+  packs.forEach((pack, packIndex) => {
+    if (!pack.id || !pack.label) {
+      problems.push(`Pack at index ${packIndex} is missing id or label.`);
       return;
     }
 
-    set.items.forEach((item, itemIndex) => {
-      if (!item.id) {
+    if (packIds.has(pack.id)) {
+      problems.push(`Duplicate pack id found: ${pack.id}`);
+    }
+    packIds.add(pack.id);
+
+    if (!Array.isArray(pack.sets)) {
+      problems.push(`Pack ${pack.id} has no sets array.`);
+      return;
+    }
+
+    const commandIds = new Set();
+
+    pack.sets.forEach((set, setIndex) => {
+      if (!set.id || !set.label) {
         problems.push(
-          `Item at index ${itemIndex} in set ${set.id} is missing id.`
+          `Command set at index ${setIndex} in pack ${pack.id} is missing id or label.`
         );
-      } else if (commandIds.has(item.id)) {
-        problems.push(`Duplicate command id found: ${item.id}`);
-      } else {
-        commandIds.add(item.id);
       }
 
-      if (!item.explain || !item.command) {
-        problems.push(
-          `Item ${item.id || itemIndex} in set ${set.id} is missing explain or command.`
-        );
-      }
-    });
-  });
-
-  if (Array.isArray(recipes)) {
-    const recipeIds = new Set();
-
-    recipes.forEach((recipe, recipeIndex) => {
-      if (!recipe.id || !recipe.title || !recipe.commandIds) {
-        problems.push(
-          `Recipe at index ${recipeIndex} is missing id, title, or commandIds.`
-        );
+      if (!Array.isArray(set.items)) {
+        problems.push(`Command set ${set.id} in pack ${pack.id} has no items array.`);
         return;
       }
 
-      if (recipeIds.has(recipe.id)) {
-        problems.push(`Duplicate recipe id found: ${recipe.id}`);
-      }
-      recipeIds.add(recipe.id);
-
-      recipe.commandIds.forEach((commandId) => {
-        if (!commandIds.has(commandId)) {
+      set.items.forEach((item, itemIndex) => {
+        if (!item.id) {
           problems.push(
-            `Recipe ${recipe.id} references unknown command id: ${commandId}`
+            `Item at index ${itemIndex} in set ${set.id} is missing id.`
+          );
+        } else if (commandIds.has(item.id)) {
+          problems.push(`Duplicate command id found in pack ${pack.id}: ${item.id}`);
+        } else {
+          commandIds.add(item.id);
+        }
+
+        if (!item.explain || !item.command) {
+          problems.push(
+            `Item ${item.id || itemIndex} in set ${set.id} is missing explain or command.`
           );
         }
       });
     });
-  } else if (recipes !== undefined) {
-    problems.push('recipes did not load as an array.');
-  }
+
+    if (Array.isArray(pack.recipes)) {
+      const recipeIds = new Set();
+
+      pack.recipes.forEach((recipe, recipeIndex) => {
+        if (!recipe.id || !recipe.title || !Array.isArray(recipe.steps)) {
+          problems.push(
+            `Recipe at index ${recipeIndex} in pack ${pack.id} is missing id, title, or steps.`
+          );
+          return;
+        }
+
+        if (recipeIds.has(recipe.id)) {
+          problems.push(`Duplicate recipe id found in pack ${pack.id}: ${recipe.id}`);
+        }
+        recipeIds.add(recipe.id);
+
+        recipe.steps
+          .filter((step) => step.type === 'command')
+          .forEach((step) => {
+            if (!commandIds.has(step.commandId)) {
+              problems.push(
+                `Recipe ${recipe.id} references unknown command id in pack ${pack.id}: ${step.commandId}`
+              );
+            }
+          });
+      });
+    } else {
+      problems.push(`Pack ${pack.id} recipes did not load as an array.`);
+    }
+  });
+}
+
+if (typeof getPackById !== 'function') {
+  problems.push('getPackById was not exported as a function.');
 }
 
 if (problems.length) {
