@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { commandSets, CommandItem, CommandPlatform } from '../data/commandSets';
 import CommandCard from './CommandCard';
 import { copyText } from '../lib/clipboard';
+import RecipesPanel from './RecipesPanel';
 
 const platformOptions = [
   { id: 'windows', label: 'Windows PowerShell' },
@@ -19,11 +20,14 @@ type Tab = {
   description?: string;
 };
 
-const tabs: Tab[] = commandSets.map((set) => ({
-  id: set.id,
-  label: set.label,
-  description: set.description
-}));
+const tabs: Tab[] = [
+  ...commandSets.map((set) => ({
+    id: set.id,
+    label: set.label,
+    description: set.description
+  })),
+  { id: 'recipes', label: 'Recipes', description: 'Guided step-by-step flows.' }
+];
 
 function matchesPlatform(item: CommandItem, filter: PlatformFilter) {
   const platform: CommandPlatform = item.platform ?? 'any';
@@ -56,7 +60,7 @@ export default function CommandTabs() {
   const [platformFilter, setPlatformFilter] = useState<PlatformFilter>('windows');
 
   const activeSet = useMemo(
-    () => commandSets.find((set) => set.id === activeId) ?? commandSets[0],
+    () => commandSets.find((set) => set.id === activeId),
     [activeId]
   );
 
@@ -76,14 +80,6 @@ export default function CommandTabs() {
     setCopyAllState(ok ? 'copied' : 'error');
     setTimeout(() => setCopyAllState('idle'), 2000);
   };
-
-  if (!activeSet) {
-    return (
-      <div className="rounded-2xl border border-white/10 bg-ink-900/70 p-10 text-white/60">
-        No command sets found.
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-8">
@@ -134,50 +130,69 @@ export default function CommandTabs() {
               className="w-56 rounded-xl border border-white/10 bg-ink-900/70 px-4 py-2 text-sm text-white placeholder:text-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-moss-500"
               aria-label="Search commands"
             />
-            <span className="pointer-events-none absolute right-3 top-2.5 text-xs text-white/40">
-              /{activeSet.label}
-            </span>
+            {activeSet && (
+              <span className="pointer-events-none absolute right-3 top-2.5 text-xs text-white/40">
+                /{activeSet.label}
+              </span>
+            )}
           </div>
-          <button
-            type="button"
-            onClick={handleCopyAll}
-            className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
-              copyAllState === 'copied'
-                ? 'bg-moss-600 text-ink-950'
+          {activeSet && (
+            <button
+              type="button"
+              onClick={handleCopyAll}
+              className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
+                copyAllState === 'copied'
+                  ? 'bg-moss-600 text-ink-950'
+                  : copyAllState === 'error'
+                  ? 'bg-red-500/80 text-white'
+                  : 'bg-white text-ink-950 hover:bg-moss-500'
+              }`}
+            >
+              {copyAllState === 'copied'
+                ? 'All copied'
                 : copyAllState === 'error'
-                ? 'bg-red-500/80 text-white'
-                : 'bg-white text-ink-950 hover:bg-moss-500'
-            }`}
-          >
-            {copyAllState === 'copied'
-              ? 'All copied'
-              : copyAllState === 'error'
-              ? 'Copy failed'
-              : 'Copy all'}
-          </button>
-        </div>
-      </div>
-
-      <div className="rounded-2xl border border-white/10 bg-ink-900/50 p-6">
-        <div className="flex flex-col gap-2">
-          <p className="text-2xl font-semibold">{activeSet.label}</p>
-          {activeSet.description && (
-            <p className="text-sm text-white/60">{activeSet.description}</p>
+                ? 'Copy failed'
+                : 'Copy all'}
+            </button>
           )}
         </div>
       </div>
 
-      <div className="grid gap-6">
-        {filteredItems.length === 0 ? (
-          <div className="rounded-2xl border border-white/10 bg-ink-900/70 p-8 text-white/60">
-            No commands match that search.
+      {activeSet ? (
+        <div className="rounded-2xl border border-white/10 bg-ink-900/50 p-6">
+          <div className="flex flex-col gap-2">
+            <p className="text-2xl font-semibold">{activeSet.label}</p>
+            {activeSet.description && (
+              <p className="text-sm text-white/60">{activeSet.description}</p>
+            )}
           </div>
-        ) : (
-          filteredItems.map((item) => (
-            <CommandCard key={item.id} item={item} />
-          ))
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-white/10 bg-ink-900/50 p-6">
+          <div className="flex flex-col gap-2">
+            <p className="text-2xl font-semibold">Recipes</p>
+            <p className="text-sm text-white/60">
+              Step-by-step flows that chain commands together.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {activeSet ? (
+        <div className="grid gap-6">
+          {filteredItems.length === 0 ? (
+            <div className="rounded-2xl border border-white/10 bg-ink-900/70 p-8 text-white/60">
+              No commands match that search.
+            </div>
+          ) : (
+            filteredItems.map((item) => (
+              <CommandCard key={item.id} item={item} />
+            ))
+          )}
+        </div>
+      ) : (
+        <RecipesPanel query={query} platformFilter={platformFilter} />
+      )}
     </div>
   );
 }
