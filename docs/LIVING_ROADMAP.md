@@ -62,6 +62,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - 2026-02-22: Added favicon + apple icon using app/icon.png and app/apple-icon.png. Score: Traffic 88 / Learning 52 / Utility 50.
 - 2026-02-22: Command ingestion pipeline added (staging CSV + import script). Score: Traffic 88 / Learning 53 / Utility 55.
 - 2026-02-22: Added 30-node-dev batch via staging import. Score: Traffic 90 / Learning 54 / Utility 55 / Content 58.
+- 2026-02-22: Updated base command learning + sources and added JSON-LD on command pages. Score: Traffic 92 / Learning 56 / Utility 55 / Content 62.
 
 ## Weekly Execution Plan (Next 7 Days)
 - Day 1: P0 A hero clarity + CTA, update roadmap
