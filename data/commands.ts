@@ -33,27 +33,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Installs all the project tools and packages.",
-      "whenToUse": "Use this the first time, or after deleting node_modules.",
+      "whatItDoes": "Installs dependencies from package.json into node_modules.",
+      "whenToUse": "Use this after cloning the repo or if node_modules is missing.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm install",
-          "explanation": "Installs all the project tools and packages."
+          "explanation": "Installs dependencies from package.json into node_modules."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Check your internet connection."
+          "mistake": "ENOENT: no such file or directory, open 'package.json'",
+          "fix": "Run this in the project root."
+        },
+        {
+          "mistake": "ERESOLVE unable to resolve dependency tree",
+          "fix": "Use the project’s required Node version."
+        },
+        {
+          "mistake": "npm ERR! code EACCES",
+          "fix": "Fix permissions or use a clean terminal session."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "npm install (CLI docs)",
-        "url": "https://docs.npmjs.com/cli/v10/commands/npm-install"
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-install/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/commands"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -88,18 +100,26 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Starts the local dev server so you can view the site.",
-      "whenToUse": "Use this when you want to develop locally.",
+      "whatItDoes": "Starts the local dev server with hot reload.",
+      "whenToUse": "Use this while developing to preview changes locally.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm run dev",
-          "explanation": "Starts the local dev server so you can view the site."
+          "explanation": "Starts the local dev server with hot reload."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
+          "mistake": "Missing script: \"dev\"",
+          "fix": "Check package.json for a dev script."
+        },
+        {
+          "mistake": "EADDRINUSE: address already in use",
+          "fix": "Stop the other server or use a different port."
+        },
+        {
+          "mistake": "'next' is not recognized / command not found",
           "fix": "Run npm install first."
         }
       ],
@@ -107,8 +127,12 @@ const baseCommands: Command[] = [
     },
     "sources": [
       {
-        "label": "npm run-script (CLI docs)",
-        "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v8/commands/npm-run-script/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v11/using-npm/scripts/"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -143,27 +167,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Opens the local site in your browser.",
-      "whenToUse": "Use this after npm run dev is running.",
+      "whatItDoes": "Opens your local site in the browser at port 3000.",
+      "whenToUse": "Use this after the dev server says it is ready.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "http://localhost:3000",
-          "explanation": "Opens the local site in your browser."
+          "explanation": "Opens your local site in the browser at port 3000."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure the dev server is running."
+          "mistake": "ERR_CONNECTION_REFUSED",
+          "fix": "Start the dev server and confirm the port."
+        },
+        {
+          "mistake": "This site can’t be reached",
+          "fix": "Keep the dev server running in another terminal."
+        },
+        {
+          "mistake": "Port mismatch (e.g. 3001 instead of 3000)",
+          "fix": "Use the exact port printed in the terminal."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "MDN: localhost",
-        "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web#localhost"
+        "label": "Official Docs",
+        "url": "https://mdn2.netlify.app/en-us/docs/web/http/basics_of_http/identifying_resources_on_the_web/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://mdn2.netlify.app/en-us/docs/web/http/resources_and_uris/"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -198,27 +234,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Builds the site for production.",
-      "whenToUse": "Use this before deploying or to check for build errors.",
+      "whatItDoes": "Builds the app for production output.",
+      "whenToUse": "Use this before deploying or to catch build errors.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm run build",
-          "explanation": "Builds the site for production."
+          "explanation": "Builds the app for production output."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Fix the first error shown in the terminal."
+          "mistake": "Missing script: \"build\"",
+          "fix": "Add a build script in package.json."
+        },
+        {
+          "mistake": "Module not found: Can't resolve",
+          "fix": "Run npm install and check import paths."
+        },
+        {
+          "mistake": "Type error or ESLint error during build",
+          "fix": "Fix the first error shown and rebuild."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "npm run-script (CLI docs)",
-        "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v8/commands/npm-run-script/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v11/using-npm/scripts/"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -253,27 +301,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Runs the production server after a build.",
-      "whenToUse": "Use this only after npm run build has succeeded.",
+      "whatItDoes": "Starts the production server from a completed build.",
+      "whenToUse": "Use this only after npm run build succeeds.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm start",
-          "explanation": "Runs the production server after a build."
+          "explanation": "Starts the production server from a completed build."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
+          "mistake": "Error: Could not find a production build in the '.next' directory",
           "fix": "Run npm run build first."
+        },
+        {
+          "mistake": "EADDRINUSE: address already in use",
+          "fix": "Stop the process using that port or change the port."
+        },
+        {
+          "mistake": "Missing script: \"start\"",
+          "fix": "Add a start script in package.json."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "npm run-script (CLI docs)",
-        "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-start/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v11/using-npm/scripts/"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -308,27 +368,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Checks the code for common mistakes.",
-      "whenToUse": "Use this before committing or sharing code.",
+      "whatItDoes": "Runs the project’s lint checks.",
+      "whenToUse": "Use this before committing or when CI fails.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm run lint",
-          "explanation": "Checks the code for common mistakes."
+          "explanation": "Runs the project’s lint checks."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Fix the first lint error listed."
+          "mistake": "Missing script: \"lint\"",
+          "fix": "Add a lint script in package.json."
+        },
+        {
+          "mistake": "ESLint couldn't find a configuration file",
+          "fix": "Ensure eslint config and deps are installed."
+        },
+        {
+          "mistake": "Lint errors found",
+          "fix": "Fix the reported files and rerun."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "npm run-script (CLI docs)",
-        "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v8/commands/npm-run-script/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v11/using-npm/scripts/"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -363,27 +435,35 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows your Node.js version.",
-      "whenToUse": "Use this if someone asks you to confirm your Node version.",
+      "whatItDoes": "Prints the installed Node.js version.",
+      "whenToUse": "Use this when a tool asks for your Node version.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "node -v",
-          "explanation": "Shows your Node.js version."
+          "explanation": "Prints the installed Node.js version."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Install Node.js from nodejs.org."
+          "mistake": "'node' is not recognized as an internal or external command",
+          "fix": "Install Node.js and reopen the terminal."
+        },
+        {
+          "mistake": "Version is too old for the project",
+          "fix": "Install the required Node version and retry."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "Node.js CLI options",
+        "label": "Official Docs",
         "url": "https://nodejs.org/api/cli.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://nodejs.org/api/process.html"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -418,27 +498,35 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows your npm version.",
-      "whenToUse": "Use this if npm commands are acting strange.",
+      "whatItDoes": "Prints the installed npm version.",
+      "whenToUse": "Use this when npm behaves oddly or you need to confirm version.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm -v",
-          "explanation": "Shows your npm version."
+          "explanation": "Prints the installed npm version."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Install Node.js again to restore npm."
+          "mistake": "'npm' is not recognized as an internal or external command",
+          "fix": "Install Node.js to get npm."
+        },
+        {
+          "mistake": "npm version is too old",
+          "fix": "Update Node.js or npm per project instructions."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "npm command (CLI docs)",
-        "url": "https://docs.npmjs.com/cli/v10/commands/npm"
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v7/commands/npm"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/commands"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -473,27 +561,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Fixes next is not recognized by installing packages.",
-      "whenToUse": "Use this if the terminal says next is not recognized.",
+      "whatItDoes": "Installs dependencies from package.json into node_modules.",
+      "whenToUse": "Use this after cloning the repo or if node_modules is missing.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm install",
-          "explanation": "Fixes next is not recognized by installing packages."
+          "explanation": "Installs dependencies from package.json into node_modules."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Check your internet connection."
+          "mistake": "ENOENT: no such file or directory, open 'package.json'",
+          "fix": "Run this in the project root."
+        },
+        {
+          "mistake": "ERESOLVE unable to resolve dependency tree",
+          "fix": "Use the project’s required Node version."
+        },
+        {
+          "mistake": "npm ERR! code EACCES",
+          "fix": "Fix permissions or use a clean terminal session."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "npm install (CLI docs)",
-        "url": "https://docs.npmjs.com/cli/v10/commands/npm-install"
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-install/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/commands"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -529,27 +629,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Runs npm even if PowerShell blocks scripts.",
-      "whenToUse": "Use this if you see running scripts is disabled.",
+      "whatItDoes": "Runs npm by bypassing PowerShell script policy for this session.",
+      "whenToUse": "Use this if you see 'running scripts is disabled on this system'.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "powershell -ExecutionPolicy Bypass -Command \"npm run dev\"",
-          "explanation": "Runs npm even if PowerShell blocks scripts."
+          "explanation": "Runs npm by bypassing PowerShell script policy for this session."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Close other terminals and try again."
+          "mistake": "running scripts is disabled on this system",
+          "fix": "Use the exact bypass command shown."
+        },
+        {
+          "mistake": "UnauthorizedAccess: (:) [], PSSecurityException",
+          "fix": "Open a new PowerShell session and retry."
+        },
+        {
+          "mistake": "'npm' is not recognized",
+          "fix": "Install Node.js and reopen PowerShell."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "PowerShell Set-ExecutionPolicy",
-        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy"
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.5"
+      },
+      {
+        "label": "Reference",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.5"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -585,27 +697,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Finds what is using port 3000.",
-      "whenToUse": "Use this if the dev server says the port is busy.",
+      "whatItDoes": "Finds the PID using port 3000.",
+      "whenToUse": "Use this if the dev server reports EADDRINUSE.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "netstat -ano | findstr :3000",
-          "explanation": "Finds what is using port 3000."
+          "explanation": "Finds the PID using port 3000."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure you are using Windows PowerShell."
+          "mistake": "INFO: No connections could be found",
+          "fix": "Nothing is using port 3000 right now."
+        },
+        {
+          "mistake": "Access is denied",
+          "fix": "Run PowerShell as Administrator."
+        },
+        {
+          "mistake": "findstr :3000 returns nothing",
+          "fix": "Start the app or check the correct port."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "Microsoft netstat command",
-        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netstat"
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/nb-no/windows-server/administration/windows-commands/netstat"
+      },
+      {
+        "label": "Reference",
+        "url": "https://man7.org/linux/man-pages/man8/lsof.8.html"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -641,27 +765,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Stops the process that is using a port.",
-      "whenToUse": "Use this after you find the PID with netstat.",
+      "whatItDoes": "Force-stops the process using a PID.",
+      "whenToUse": "Use this after identifying the PID with netstat.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "taskkill /PID <PID> /F",
-          "explanation": "Stops the process that is using a port."
+          "explanation": "Force-stops the process using a PID."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure you replaced <PID> with the real number."
+          "mistake": "ERROR: The process \"<PID>\" not found",
+          "fix": "Double-check the PID and try again."
+        },
+        {
+          "mistake": "Access is denied",
+          "fix": "Run PowerShell as Administrator."
+        },
+        {
+          "mistake": "The PID changed",
+          "fix": "Re-run netstat to get the current PID."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "Microsoft taskkill command",
+        "label": "Official Docs",
         "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/taskkill"
+      },
+      {
+        "label": "Reference",
+        "url": "https://man7.org/linux/man-pages/man1/kill.1.html"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -697,27 +833,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Deletes the Next.js build cache so it can rebuild cleanly.",
-      "whenToUse": "Use this if builds are stuck or showing old changes.",
+      "whatItDoes": "Deletes the .next build cache so Next.js can rebuild cleanly.",
+      "whenToUse": "Use this if stale builds or weird build errors persist.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "Remove-Item -Recurse -Force .next",
-          "explanation": "Deletes the Next.js build cache so it can rebuild cleanly."
+          "explanation": "Deletes the .next build cache so Next.js can rebuild cleanly."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Close the dev server first, then try again."
+          "mistake": "Access is denied",
+          "fix": "Stop the dev server, then retry."
+        },
+        {
+          "mistake": "Cannot find path '.next'",
+          "fix": "You may not have built yet."
+        },
+        {
+          "mistake": "The process cannot access the file because it is being used",
+          "fix": "Close the running server first."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "PowerShell Remove-Item",
-        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item"
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-7.5"
+      },
+      {
+        "label": "Reference",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -753,27 +901,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Removes all installed packages so you can reinstall cleanly.",
-      "whenToUse": "Use this if npm install keeps failing.",
+      "whatItDoes": "Deletes node_modules to force a clean install.",
+      "whenToUse": "Use this if installs are broken or dependencies seem corrupt.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "Remove-Item -Recurse -Force node_modules",
-          "explanation": "Removes all installed packages so you can reinstall cleanly."
+          "explanation": "Deletes node_modules to force a clean install."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Close any running dev server and try again."
+          "mistake": "Access is denied",
+          "fix": "Close editors/terminals using node_modules."
+        },
+        {
+          "mistake": "The process cannot access the file because it is being used",
+          "fix": "Stop the dev server first."
+        },
+        {
+          "mistake": "Cannot find path",
+          "fix": "Run in the project root."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "PowerShell Remove-Item",
-        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item"
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-7.5"
+      },
+      {
+        "label": "Reference",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -809,27 +969,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Deletes the lock file so npm can make a fresh one.",
-      "whenToUse": "Use this if npm keeps complaining about the lock file.",
+      "whatItDoes": "Deletes package-lock.json to allow a fresh lockfile.",
+      "whenToUse": "Use this only if told to regenerate the lockfile.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "Remove-Item package-lock.json",
-          "explanation": "Deletes the lock file so npm can make a fresh one."
+          "explanation": "Deletes package-lock.json to allow a fresh lockfile."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure the file exists in the folder."
+          "mistake": "Access is denied",
+          "fix": "Close editors holding the file."
+        },
+        {
+          "mistake": "Cannot find path 'package-lock.json'",
+          "fix": "Run in the project root."
+        },
+        {
+          "mistake": "Lockfile keeps coming back",
+          "fix": "Run npm install to regenerate it."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "PowerShell Remove-Item",
-        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item"
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-7.5"
+      },
+      {
+        "label": "Reference",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -865,27 +1037,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Reinstalls everything cleanly after deleting node_modules.",
-      "whenToUse": "Use this after removing node_modules or the lock file.",
+      "whatItDoes": "Installs dependencies from package.json into node_modules.",
+      "whenToUse": "Use this after cloning the repo or if node_modules is missing.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm install",
-          "explanation": "Reinstalls everything cleanly after deleting node_modules."
+          "explanation": "Installs dependencies from package.json into node_modules."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Check your internet connection."
+          "mistake": "ENOENT: no such file or directory, open 'package.json'",
+          "fix": "Run this in the project root."
+        },
+        {
+          "mistake": "ERESOLVE unable to resolve dependency tree",
+          "fix": "Use the project’s required Node version."
+        },
+        {
+          "mistake": "npm ERR! code EACCES",
+          "fix": "Fix permissions or use a clean terminal session."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "npm install (CLI docs)",
-        "url": "https://docs.npmjs.com/cli/v10/commands/npm-install"
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-install/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/commands"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -921,27 +1105,35 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Clears the npm cache to fix stubborn install errors.",
-      "whenToUse": "Use this if npm install fails over and over.",
+      "whatItDoes": "Clears npm's cache (requires --force).",
+      "whenToUse": "Use this if npm reports cache corruption.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm cache clean --force",
-          "explanation": "Clears the npm cache to fix stubborn install errors."
+          "explanation": "Clears npm's cache (requires --force)."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Try running the command as Administrator."
+          "mistake": "npm ERR! code EACCES",
+          "fix": "Fix permissions or run in a clean terminal."
+        },
+        {
+          "mistake": "Forgetting --force",
+          "fix": "Add --force as shown; clean is restricted."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "npm cache (CLI docs)",
-        "url": "https://docs.npmjs.com/cli/v10/commands/npm-cache"
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-cache/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/commands"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -976,27 +1168,35 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows which files changed since your last save point.",
-      "whenToUse": "Use this any time you are unsure what changed.",
+      "whatItDoes": "Shows staged, modified, and untracked files.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git status",
-          "explanation": "Shows which files changed since your last save point."
+          "explanation": "Shows staged, modified, and untracked files."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure you are inside the project folder."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "git status (official docs)",
+        "label": "Official Docs",
         "url": "https://git-scm.com/docs/git-status"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/inspecting-a-repository"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -1031,27 +1231,35 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Downloads the latest changes from the shared repo.",
-      "whenToUse": "Use this before you start working.",
+      "whatItDoes": "Fetches and merges remote changes into your current branch.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git pull",
-          "explanation": "Downloads the latest changes from the shared repo."
+          "explanation": "Fetches and merges remote changes into your current branch."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Commit or stash your local changes first."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "git pull (official docs)",
+        "label": "Official Docs",
         "url": "https://git-scm.com/docs/git-pull"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/syncing/git-pull"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -1086,27 +1294,35 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Stages all your changes so they are ready to commit.",
-      "whenToUse": "Use this right before you commit.",
+      "whatItDoes": "Stages all changes in the repo for the next commit.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git add -A",
-          "explanation": "Stages all your changes so they are ready to commit."
+          "explanation": "Stages all changes in the repo for the next commit."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Check file permissions."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "git add (official docs)",
-        "url": "https://git-scm.com/docs/git-add"
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-add/2.48.0.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/saving-changes"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -1141,27 +1357,35 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Creates a saved checkpoint with a short message.",
-      "whenToUse": "Use this after staging files with git add.",
+      "whatItDoes": "Creates a commit from staged changes with a message.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git commit -m \"message\"",
-          "explanation": "Creates a saved checkpoint with a short message."
+          "explanation": "Creates a commit from staged changes with a message."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure you staged files first with git add -A."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "git commit (official docs)",
-        "url": "https://git-scm.com/docs/git-commit"
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-commit.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-commit"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -1196,27 +1420,35 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Uploads your commits to the shared repo.",
-      "whenToUse": "Use this after committing changes you want to share.",
+      "whatItDoes": "Sends your commits to the remote repository.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git push",
-          "explanation": "Uploads your commits to the shared repo."
+          "explanation": "Sends your commits to the remote repository."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Run git pull first and resolve any conflicts."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
     "sources": [
       {
-        "label": "git push (official docs)",
-        "url": "https://git-scm.com/docs/git-push"
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-push.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/syncing/git-push"
       }
     ],
     "lastReviewed": "2026-02-22"
@@ -1251,24 +1483,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows the last few commits in a short list.",
-      "whenToUse": "Use this to see what was changed recently.",
+      "whatItDoes": "Shows recent commits in the current branch.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git log --oneline -5",
-          "explanation": "Shows the last few commits in a short list."
+          "explanation": "Shows recent commits in the current branch."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure you are in a Git repository."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-log/2.0.5.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.kernel.org/pub/software/scm/git/docs/git-log.html"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1301,24 +1546,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows the exact changes you made to files.",
-      "whenToUse": "Use this before committing to review changes.",
+      "whatItDoes": "Shows unstaged changes in your working tree.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git diff",
-          "explanation": "Shows the exact changes you made to files."
+          "explanation": "Shows unstaged changes in your working tree."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure you have changed a file first."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-diff"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1351,24 +1609,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Unstages files if you added them by mistake.",
-      "whenToUse": "Use this if you staged the wrong files.",
+      "whatItDoes": "Unstages files without deleting your changes.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git restore --staged .",
-          "explanation": "Unstages files if you added them by mistake."
+          "explanation": "Unstages files without deleting your changes."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Check git status to see what is staged."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-restore.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/undoing-changes"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1401,24 +1672,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Temporarily saves your changes without committing.",
-      "whenToUse": "Use this when you must pull changes but are not ready to commit.",
+      "whatItDoes": "Temporarily saves uncommitted changes.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git stash -u",
-          "explanation": "Temporarily saves your changes without committing."
+          "explanation": "Temporarily saves uncommitted changes."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure you are in a Git repo."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-stash/2.7.6.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/git-stash/"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1451,24 +1735,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Brings back your last stashed changes.",
-      "whenToUse": "Use this after you have pulled and want your changes back.",
+      "whatItDoes": "Re-applies the last stashed changes.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git stash pop",
-          "explanation": "Brings back your last stashed changes."
+          "explanation": "Re-applies the last stashed changes."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Resolve any conflicts shown in the terminal."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-stash/2.7.6.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/git-stash/"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1501,24 +1798,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Opens a friendly database viewer in your browser.",
-      "whenToUse": "Use this to view or edit data by hand.",
+      "whatItDoes": "Starts Prisma Studio to browse and edit local data.",
+      "whenToUse": "Use this when you want a visual view of your database.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npx prisma studio",
-          "explanation": "Opens a friendly database viewer in your browser."
+          "explanation": "Starts Prisma Studio to browse and edit local data."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Run npm install first."
+          "mistake": "P1001: Can't reach database server",
+          "fix": "Start the DB and check DATABASE_URL."
+        },
+        {
+          "mistake": "Schema file not found",
+          "fix": "Ensure prisma/schema.prisma exists."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.prisma.io/docs/cli/studio"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.prisma.io/docs/studio"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1551,24 +1861,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Applies database migrations during development.",
-      "whenToUse": "Use this after changing the schema.prisma file.",
+      "whatItDoes": "Creates and applies a migration in development.",
+      "whenToUse": "Use this after changing schema.prisma in dev.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npx prisma migrate dev",
-          "explanation": "Applies database migrations during development."
+          "explanation": "Creates and applies a migration in development."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Check the error for schema mistakes."
+          "mistake": "P1001: Can't reach database server",
+          "fix": "Start the DB and check DATABASE_URL."
+        },
+        {
+          "mistake": "Schema file not found",
+          "fix": "Ensure prisma/schema.prisma exists."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.prisma.io/docs/cli/migrate"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.prisma.io/docs/concepts/components/prisma-migrate/migrate-development-production"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1601,24 +1924,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Regenerates the Prisma client code.",
-      "whenToUse": "Use this after updating schema.prisma.",
+      "whatItDoes": "Generates Prisma Client from your schema.",
+      "whenToUse": "Use this after changing schema.prisma.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npx prisma generate",
-          "explanation": "Regenerates the Prisma client code."
+          "explanation": "Generates Prisma Client from your schema."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Check your schema for errors."
+          "mistake": "P1001: Can't reach database server",
+          "fix": "Start the DB and check DATABASE_URL."
+        },
+        {
+          "mistake": "Schema file not found",
+          "fix": "Ensure prisma/schema.prisma exists."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.prisma.io/docs/cli/generate"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.prisma.io/docs/orm/reference/prisma-cli-reference"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1651,24 +1987,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Pushes schema changes directly to the database.",
-      "whenToUse": "Use this only if you do not need a migration history.",
+      "whatItDoes": "Pushes schema changes to the database without migrations.",
+      "whenToUse": "Use this for prototypes or local dev without migration history.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npx prisma db push",
-          "explanation": "Pushes schema changes directly to the database."
+          "explanation": "Pushes schema changes to the database without migrations."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure the database is running."
+          "mistake": "P1001: Can't reach database server",
+          "fix": "Start the DB and check DATABASE_URL."
+        },
+        {
+          "mistake": "Schema file not found",
+          "fix": "Ensure prisma/schema.prisma exists."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://www.prisma.io/docs/cli/db/push"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.prisma.io/docs/orm/prisma-migrate/workflows/prototyping-your-schema"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1701,24 +2050,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Formats your Prisma schema file neatly.",
+      "whatItDoes": "Formats the Prisma schema file.",
       "whenToUse": "Use this before committing schema changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npx prisma format",
-          "explanation": "Formats your Prisma schema file neatly."
+          "explanation": "Formats the Prisma schema file."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Check that prisma is installed."
+          "mistake": "P1001: Can't reach database server",
+          "fix": "Start the DB and check DATABASE_URL."
+        },
+        {
+          "mistake": "Schema file not found",
+          "fix": "Ensure prisma/schema.prisma exists."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.prisma.io/docs/orm/reference/prisma-cli-reference"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.prisma.io/docs/cli"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1751,24 +2113,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Checks your Prisma schema for mistakes.",
-      "whenToUse": "Use this if migrations fail or schema looks wrong.",
+      "whatItDoes": "Validates the Prisma schema without formatting.",
+      "whenToUse": "Use this to check schema correctness in CI.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npx prisma validate",
-          "explanation": "Checks your Prisma schema for mistakes."
+          "explanation": "Validates the Prisma schema without formatting."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Fix the first error shown."
+          "mistake": "P1001: Can't reach database server",
+          "fix": "Start the DB and check DATABASE_URL."
+        },
+        {
+          "mistake": "Schema file not found",
+          "fix": "Ensure prisma/schema.prisma exists."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.prisma.io/docs/orm/reference/prisma-cli-reference"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.prisma.io/docs/cli"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1801,24 +2176,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows where your schema.prisma file lives.",
-      "whenToUse": "Use this if you cannot find schema.prisma.",
+      "whatItDoes": "Finds the schema.prisma file in the repo.",
+      "whenToUse": "Use this if you cannot find your Prisma schema file.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "Get-ChildItem -Recurse -Filter schema.prisma",
-          "explanation": "Shows where your schema.prisma file lives."
+          "explanation": "Finds the schema.prisma file in the repo."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure you are in the project folder."
+          "mistake": "P1001: Can't reach database server",
+          "fix": "Start the DB and check DATABASE_URL."
+        },
+        {
+          "mistake": "Schema file not found",
+          "fix": "Ensure prisma/schema.prisma exists."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.prisma.io/docs/orm/reference/prisma-schema-reference"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.prisma.io/docs/v6/orm/prisma-schema/overview"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1851,24 +2239,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows which migrations have been applied.",
-      "whenToUse": "Use this to check migration history.",
+      "whatItDoes": "Shows migration status for the database.",
+      "whenToUse": "Use this to see if migrations are pending.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npx prisma migrate status",
-          "explanation": "Shows which migrations have been applied."
+          "explanation": "Shows migration status for the database."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure your database is running."
+          "mistake": "P1001: Can't reach database server",
+          "fix": "Start the DB and check DATABASE_URL."
+        },
+        {
+          "mistake": "Schema file not found",
+          "fix": "Ensure prisma/schema.prisma exists."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.prisma.io/docs/cli/migrate"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.prisma.io/docs/concepts/components/prisma-migrate/migrate-development-production"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1901,24 +2302,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Pulls the database schema into Prisma.",
-      "whenToUse": "Use this if the database changed outside of Prisma.",
+      "whatItDoes": "Introspects the database and updates schema.prisma.",
+      "whenToUse": "Use this when you want schema from an existing DB.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npx prisma db pull",
-          "explanation": "Pulls the database schema into Prisma."
+          "explanation": "Introspects the database and updates schema.prisma."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Check your database connection string."
+          "mistake": "P1001: Can't reach database server",
+          "fix": "Start the DB and check DATABASE_URL."
+        },
+        {
+          "mistake": "Schema file not found",
+          "fix": "Ensure prisma/schema.prisma exists."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.prisma.io/docs/cli/db/pull"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.prisma.io/docs/orm/reference/prisma-cli-reference"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -1951,24 +2365,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Runs your database seed script.",
-      "whenToUse": "Use this when you need sample data.",
+      "whatItDoes": "Runs the database seed script.",
+      "whenToUse": "Use this after setting up a fresh database.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npx prisma db seed",
-          "explanation": "Runs your database seed script."
+          "explanation": "Runs the database seed script."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure the seed script exists."
+          "mistake": "P1001: Can't reach database server",
+          "fix": "Start the DB and check DATABASE_URL."
+        },
+        {
+          "mistake": "Schema file not found",
+          "fix": "Ensure prisma/schema.prisma exists."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.prisma.io/docs/cli/db"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.prisma.io/docs/cli"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2018,7 +2445,16 @@ const baseCommands: Command[] = [
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v7/commands/npm"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/commands"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2051,24 +2487,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows your npm version.",
-      "whenToUse": "Use this if npm behaves oddly.",
+      "whatItDoes": "Prints the installed npm version.",
+      "whenToUse": "Use this when npm behaves oddly or you need to confirm version.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm -p \"process.versions.npm\"",
-          "explanation": "Shows your npm version."
+          "explanation": "Prints the installed npm version."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Reinstall Node.js to restore npm."
+          "mistake": "'npm' is not recognized as an internal or external command",
+          "fix": "Install Node.js to get npm."
+        },
+        {
+          "mistake": "npm version is too old",
+          "fix": "Update Node.js or npm per project instructions."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v7/commands/npm"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/commands"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2101,24 +2550,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows where Node.js is installed on Windows.",
-      "whenToUse": "Use this if you have multiple Node installs.",
+      "whatItDoes": "Shows where the node executable is on PATH.",
+      "whenToUse": "Use this to confirm which Node is being used.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "where node",
-          "explanation": "Shows where Node.js is installed on Windows."
+          "explanation": "Shows where the node executable is on PATH."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure Node is installed."
+          "mistake": "INFO: Could not find files for the given pattern(s).",
+          "fix": "Install Node.js or fix PATH."
+        },
+        {
+          "mistake": "Multiple paths returned",
+          "fix": "Remove older Node installs from PATH."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/en-us/Windows-server/administration/windows-commands/where"
+      },
+      {
+        "label": "Reference",
+        "url": "https://learn.microsoft.com/gl-es/windows-server/administration/windows-commands/windows-commands"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2151,24 +2613,41 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows the dev server logs in the terminal.",
-      "whenToUse": "Use this to see errors while the server runs.",
+      "whatItDoes": "Starts the local dev server with hot reload.",
+      "whenToUse": "Use this while developing to preview changes locally.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm run dev",
-          "explanation": "Shows the dev server logs in the terminal."
+          "explanation": "Starts the local dev server with hot reload."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
+          "mistake": "Missing script: \"dev\"",
+          "fix": "Check package.json for a dev script."
+        },
+        {
+          "mistake": "EADDRINUSE: address already in use",
+          "fix": "Stop the other server or use a different port."
+        },
+        {
+          "mistake": "'next' is not recognized / command not found",
           "fix": "Run npm install first."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v8/commands/npm-run-script/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v11/using-npm/scripts/"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2201,24 +2680,41 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Finds what is running on port 3000.",
-      "whenToUse": "Use this if port 3000 is busy.",
+      "whatItDoes": "Finds the PID using port 3000.",
+      "whenToUse": "Use this if the dev server reports EADDRINUSE.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "netstat -ano | findstr :3000",
-          "explanation": "Finds what is running on port 3000."
+          "explanation": "Finds the PID using port 3000."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Try running PowerShell as Administrator."
+          "mistake": "INFO: No connections could be found",
+          "fix": "Nothing is using port 3000 right now."
+        },
+        {
+          "mistake": "Access is denied",
+          "fix": "Run PowerShell as Administrator."
+        },
+        {
+          "mistake": "findstr :3000 returns nothing",
+          "fix": "Start the app or check the correct port."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/nb-no/windows-server/administration/windows-commands/netstat"
+      },
+      {
+        "label": "Reference",
+        "url": "https://man7.org/linux/man-pages/man8/lsof.8.html"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2251,24 +2747,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows where esbuild is installed.",
-      "whenToUse": "Use this if build errors mention esbuild.",
+      "whatItDoes": "Shows where esbuild is installed in node_modules.",
+      "whenToUse": "Use this to verify esbuild is installed.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "node -p \"require.resolve('esbuild')\"",
-          "explanation": "Shows where esbuild is installed."
+          "explanation": "Shows where esbuild is installed in node_modules."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Run npm install to ensure esbuild exists."
+          "mistake": "Error: Cannot find module 'esbuild'",
+          "fix": "Run npm install."
+        },
+        {
+          "mistake": "MODULE_NOT_FOUND",
+          "fix": "Ensure you are in the project root."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://nodejs.org/api/modules.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://nodejs.org/download/release/latest-v9.x/docs/api/modules.html"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2301,24 +2810,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows which version of esbuild is installed.",
-      "whenToUse": "Use this to confirm the esbuild version.",
+      "whatItDoes": "Lists the installed esbuild version and dependency tree.",
+      "whenToUse": "Use this to confirm which version is installed.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm ls esbuild",
-          "explanation": "Shows which version of esbuild is installed."
+          "explanation": "Lists the installed esbuild version and dependency tree."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Run npm install first."
+          "mistake": "UNMET DEPENDENCY esbuild",
+          "fix": "Run npm install."
+        },
+        {
+          "mistake": "missing: esbuild",
+          "fix": "Add esbuild or reinstall dependencies."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v9/commands/npm-ls"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/commands"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2351,24 +2873,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows the top-level files in this folder.",
-      "whenToUse": "Use this if you are unsure you are in the right folder.",
+      "whatItDoes": "Lists files in the current folder.",
+      "whenToUse": "Use this to confirm you are in the right directory.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "Get-ChildItem",
-          "explanation": "Shows the top-level files in this folder."
+          "explanation": "Lists files in the current folder."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Try running PowerShell again."
+          "mistake": "Access is denied",
+          "fix": "Choose a folder you can read."
+        },
+        {
+          "mistake": "No output",
+          "fix": "The folder may be empty."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem"
+      },
+      {
+        "label": "Reference",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-7.5"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2401,24 +2936,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Shows what has changed before you reset anything.",
-      "whenToUse": "Use this first, always.",
+      "whatItDoes": "Shows staged, modified, and untracked files.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git status",
-          "explanation": "Shows what has changed before you reset anything."
+          "explanation": "Shows staged, modified, and untracked files."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Make sure you are in the project folder."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-status"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/inspecting-a-repository"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2452,7 +3000,7 @@ const baseCommands: Command[] = [
     },
     "learning": {
       "whatItDoes": "Downloads remote updates without changing your files.",
-      "whenToUse": "Use this to see if remote changes exist.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
@@ -2462,13 +3010,26 @@ const baseCommands: Command[] = [
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Check your internet connection."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-fetch"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/syncing/git-fetch"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2502,7 +3063,7 @@ const baseCommands: Command[] = [
     },
     "learning": {
       "whatItDoes": "Updates your local files with the latest remote changes.",
-      "whenToUse": "Use this when you want the newest version.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
@@ -2512,13 +3073,26 @@ const baseCommands: Command[] = [
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Commit or stash local changes first."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-pull"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/syncing/git-pull"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2551,24 +3125,41 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Reinstalls packages without deleting your files.",
-      "whenToUse": "Use this if a package is missing.",
+      "whatItDoes": "Installs dependencies from package.json into node_modules.",
+      "whenToUse": "Use this after cloning the repo or if node_modules is missing.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm install",
-          "explanation": "Reinstalls packages without deleting your files."
+          "explanation": "Installs dependencies from package.json into node_modules."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Check your internet connection."
+          "mistake": "ENOENT: no such file or directory, open 'package.json'",
+          "fix": "Run this in the project root."
+        },
+        {
+          "mistake": "ERESOLVE unable to resolve dependency tree",
+          "fix": "Use the project’s required Node version."
+        },
+        {
+          "mistake": "npm ERR! code EACCES",
+          "fix": "Fix permissions or use a clean terminal session."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-install/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/commands"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2601,24 +3192,41 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Deletes only the Next.js cache (safe to rebuild).",
-      "whenToUse": "Use this if changes do not show up.",
+      "whatItDoes": "Deletes the .next build cache so Next.js can rebuild cleanly.",
+      "whenToUse": "Use this if stale builds or weird build errors persist.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "Remove-Item -Recurse -Force .next",
-          "explanation": "Deletes only the Next.js cache (safe to rebuild)."
+          "explanation": "Deletes the .next build cache so Next.js can rebuild cleanly."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Stop the dev server first."
+          "mistake": "Access is denied",
+          "fix": "Stop the dev server, then retry."
+        },
+        {
+          "mistake": "Cannot find path '.next'",
+          "fix": "You may not have built yet."
+        },
+        {
+          "mistake": "The process cannot access the file because it is being used",
+          "fix": "Close the running server first."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-7.5"
+      },
+      {
+        "label": "Reference",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2651,24 +3259,41 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Checks whether node_modules exists.",
-      "whenToUse": "Use this if you are unsure packages are installed.",
+      "whatItDoes": "Deletes node_modules to force a clean install.",
+      "whenToUse": "Use this if installs are broken or dependencies seem corrupt.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "Get-ChildItem node_modules",
-          "explanation": "Checks whether node_modules exists."
+          "explanation": "Deletes node_modules to force a clean install."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Run npm install to create node_modules."
+          "mistake": "Access is denied",
+          "fix": "Close editors/terminals using node_modules."
+        },
+        {
+          "mistake": "The process cannot access the file because it is being used",
+          "fix": "Stop the dev server first."
+        },
+        {
+          "mistake": "Cannot find path",
+          "fix": "Run in the project root."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-7.5"
+      },
+      {
+        "label": "Reference",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2701,24 +3326,37 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Clears npm cache (safe but can be slow).",
-      "whenToUse": "Use this if npm install keeps failing.",
+      "whatItDoes": "Clears npm's cache (requires --force).",
+      "whenToUse": "Use this if npm reports cache corruption.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "npm cache clean --force",
-          "explanation": "Clears npm cache (safe but can be slow)."
+          "explanation": "Clears npm's cache (requires --force)."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Try running in a new terminal."
+          "mistake": "npm ERR! code EACCES",
+          "fix": "Fix permissions or run in a clean terminal."
+        },
+        {
+          "mistake": "Forgetting --force",
+          "fix": "Add --force as shown; clean is restricted."
         }
       ],
       "warnings": []
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-cache/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/commands"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2751,26 +3389,43 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Deletes node_modules completely.",
-      "whenToUse": "Use this only if you are told to do a full reinstall.",
+      "whatItDoes": "Deletes node_modules to force a clean install.",
+      "whenToUse": "Use this if installs are broken or dependencies seem corrupt.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "Remove-Item -Recurse -Force node_modules",
-          "explanation": "Deletes node_modules completely."
+          "explanation": "Deletes node_modules to force a clean install."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Stop any running dev server."
+          "mistake": "Access is denied",
+          "fix": "Close editors/terminals using node_modules."
+        },
+        {
+          "mistake": "The process cannot access the file because it is being used",
+          "fix": "Stop the dev server first."
+        },
+        {
+          "mistake": "Cannot find path",
+          "fix": "Run in the project root."
         }
       ],
       "warnings": [
         "This can delete files or discard work."
       ]
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-7.5"
+      },
+      {
+        "label": "Reference",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2803,26 +3458,43 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Deletes the Next.js build cache.",
-      "whenToUse": "Use this only if safe reset did not work.",
+      "whatItDoes": "Deletes the .next build cache so Next.js can rebuild cleanly.",
+      "whenToUse": "Use this if stale builds or weird build errors persist.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "Remove-Item -Recurse -Force .next",
-          "explanation": "Deletes the Next.js build cache."
+          "explanation": "Deletes the .next build cache so Next.js can rebuild cleanly."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Stop the dev server first."
+          "mistake": "Access is denied",
+          "fix": "Stop the dev server, then retry."
+        },
+        {
+          "mistake": "Cannot find path '.next'",
+          "fix": "You may not have built yet."
+        },
+        {
+          "mistake": "The process cannot access the file because it is being used",
+          "fix": "Close the running server first."
         }
       ],
       "warnings": [
         "This can delete files or discard work."
       ]
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-7.5"
+      },
+      {
+        "label": "Reference",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2855,26 +3527,43 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Deletes the lock file so npm can rebuild it.",
-      "whenToUse": "Use this only if told to delete the lock file.",
+      "whatItDoes": "Deletes package-lock.json to allow a fresh lockfile.",
+      "whenToUse": "Use this only if told to regenerate the lockfile.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "Remove-Item package-lock.json",
-          "explanation": "Deletes the lock file so npm can rebuild it."
+          "explanation": "Deletes package-lock.json to allow a fresh lockfile."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Check the file exists before running."
+          "mistake": "Access is denied",
+          "fix": "Close editors holding the file."
+        },
+        {
+          "mistake": "Cannot find path 'package-lock.json'",
+          "fix": "Run in the project root."
+        },
+        {
+          "mistake": "Lockfile keeps coming back",
+          "fix": "Run npm install to regenerate it."
         }
       ],
       "warnings": [
         "This can delete files or discard work."
       ]
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-7.5"
+      },
+      {
+        "label": "Reference",
+        "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2907,26 +3596,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Throws away ALL local changes and resets to last commit.",
-      "whenToUse": "Use this only if you are sure you do not need local changes.",
+      "whatItDoes": "Throws away all local changes and resets to the last commit.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git reset --hard",
-          "explanation": "Throws away ALL local changes and resets to last commit."
+          "explanation": "Throws away all local changes and resets to the last commit."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Run git status to see what is blocking it."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": [
         "This can delete files or discard work."
       ]
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-reset.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/undoing-changes"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -2959,26 +3661,39 @@ const baseCommands: Command[] = [
       }
     },
     "learning": {
-      "whatItDoes": "Deletes ALL untracked files and folders.",
-      "whenToUse": "Use this only if you are told to remove extra files.",
+      "whatItDoes": "Deletes all untracked files and folders.",
+      "whenToUse": "Use this when working with Git history or syncing changes.",
       "examples": [
         {
           "title": "Basic example",
           "snippet": "git clean -fd",
-          "explanation": "Deletes ALL untracked files and folders."
+          "explanation": "Deletes all untracked files and folders."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "Running this in the wrong folder.",
-          "fix": "Run git status to confirm what will be removed."
+          "mistake": "fatal: not a git repository",
+          "fix": "Run inside a git repo."
+        },
+        {
+          "mistake": "No output or no changes",
+          "fix": "You may already be up to date or have nothing to change."
         }
       ],
       "warnings": [
         "This can delete files or discard work."
       ]
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-clean.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/undoing-changes"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   },
   {
@@ -3030,7 +3745,16 @@ const baseCommands: Command[] = [
         "This can delete files or discard work."
       ]
     },
-    "sources": [],
+    "sources": [
+      {
+        "label": "Official Docs",
+        "url": "https://docs.npmjs.com/cli/v7/commands/npm"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/commands"
+      }
+    ],
     "lastReviewed": "2026-02-22"
   }
 ];
