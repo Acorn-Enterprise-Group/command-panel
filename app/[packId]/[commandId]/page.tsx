@@ -78,6 +78,67 @@ export default function CommandPage({
   const command = getCommandById(params.packId, params.commandId);
   if (!command) return notFound();
 
+  const canonicalUrl = `https://copycommand.org/${params.packId}/${params.commandId}`;
+  const packUrl = `https://copycommand.org/${pack.slug}`;
+  const defaultVariant =
+    command.variants[command.defaultVariantKey] ??
+    Object.values(command.variants)[0];
+  const operatingSystems = Array.from(
+    new Set(Object.values(command.variants).map((variant) => variant.platform))
+  );
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://copycommand.org/'
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: pack.title,
+            item: packUrl
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: command.name,
+            item: canonicalUrl
+          }
+        ]
+      },
+      {
+        '@type': 'TechArticle',
+        headline: `${command.name} — CopyCommand`,
+        description: command.learning.whatItDoes,
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': canonicalUrl
+        },
+        dateModified: command.lastReviewed,
+        author: {
+          '@type': 'Organization',
+          name: 'CopyCommand'
+        },
+        citation: command.sources.map((source) => source.url)
+      },
+      {
+        '@type': 'SoftwareSourceCode',
+        name: command.name,
+        programmingLanguage: 'Shell',
+        text: defaultVariant?.command ?? command.name,
+        operatingSystem: operatingSystems,
+        url: canonicalUrl
+      }
+    ]
+  };
+
   const list = getCommandsForPack(params.packId);
   const index = list.findIndex((item) => item.id === command.id);
   const prev = index > 0 ? list[index - 1] : null;
@@ -87,6 +148,11 @@ export default function CommandPage({
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-8 px-6 py-16">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-3">
           <Link href="/" className="flex items-center">
