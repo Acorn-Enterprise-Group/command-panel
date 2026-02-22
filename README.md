@@ -27,33 +27,34 @@ npm run build
 Commands live inside packs in `data/packs`.
 
 - Edit `data/packs/default.ts` for the default pack.
-- Each pack has `sets`, which are the tab groups.
-- Each set has `items`, which are individual command cards.
-- Required fields per command: `id`, `explain`, `command`, `shellLabel`, `level`, `platform`, `whenToUse`, `expectedResult`, `ifItFails`.
-- Optional fields: `title`, `notes`, `tags`, `copyAs`.
-
-## Add recipes
-
-Recipes live inside a pack file (ex: `data/packs/default.ts`).
-
-Each recipe:
-
-- `id`: unique identifier
-- `title`: short name
-- `intro`: 1 paragraph description
-- `steps`: list of command steps (`type: 'command'`) or text steps (`type: 'text'`)
-- `platform`: optional filter (`windows`, `mac`, `linux`, `any`)
+- Each pack has a `commands` array (individual command pages).
+- Each command has `variants` (OS/shell-specific command text), a `defaultVariantKey`, and a `learning` block.
+- Tabs on the homepage are derived from the first value in `command.tools`.
 
 ## Add a new pack
 
 1. Create `data/packs/<your-pack>.ts` exporting a `Pack`.
 2. Register it in `data/index.ts` by adding it to the `packs` array.
 
-## Add a new tab (set)
+## Windows build/run (PowerShell)
 
-1. Open your pack file (ex: `data/packs/default.ts`).
-2. Add a new object to the `sets` array.
-3. Give it a unique `id`, `label`, and an `items` array.
+PowerShell may block running npm scripts because `npm.ps1` is disabled by default.
+
+One-time session fix:
+
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass -Force
+```
+
+Alternative options:
+
+- Use `npm.cmd` directly (avoids PowerShell script policy).
+- Use Command Prompt instead of PowerShell.
+- Run the command through PowerShell with bypass:
+
+```powershell
+powershell -ExecutionPolicy Bypass -Command "npm run build"
+```
 
 ## Smoke check
 
