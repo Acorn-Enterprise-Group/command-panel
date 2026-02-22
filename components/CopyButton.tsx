@@ -21,7 +21,7 @@ export default function CopyButton({
 
   useEffect(() => {
     if (state !== 'copied') return;
-    const timer = setTimeout(() => setState('idle'), 2000);
+    const timer = setTimeout(() => setState('idle'), 1500);
     return () => clearTimeout(timer);
   }, [state]);
 
@@ -64,7 +64,7 @@ export default function CopyButton({
   const buttonText = confirmArmed
     ? 'Click again to copy'
     : state === 'copied'
-    ? 'Copied!'
+    ? 'Copied ✓'
     : state === 'error'
     ? 'Copy failed'
     : label;

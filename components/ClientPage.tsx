@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import CommandTabs from './CommandTabs';
+import ThemeToggle from './ThemeToggle';
 import { getPackById, packs } from '../data';
 import type { Command, Pack } from '../data/schema';
 import { formatToolLabel, getCommandGroups } from '../lib/pack';
@@ -118,7 +119,7 @@ export default function ClientPage() {
     <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-10 px-6 py-16">
       <header className="space-y-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <label
               htmlFor="pack-select"
               className="text-xs uppercase tracking-[0.3em] text-white/40"
@@ -138,9 +139,12 @@ export default function ClientPage() {
               ))}
             </select>
           </div>
-          <p className="text-xs uppercase tracking-[0.4em] text-moss-500">
-            Beginner Command Panel
-          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <p className="text-xs uppercase tracking-[0.4em] text-moss-500">
+              Beginner Command Panel
+            </p>
+            <ThemeToggle />
+          </div>
         </div>
         <div className="space-y-4">
           <h1 className="text-4xl font-semibold sm:text-5xl">

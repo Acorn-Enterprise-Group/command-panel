@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import ThemeToggle from '../../components/ThemeToggle';
 import { getAllPackIds, getPackById } from '../../data';
 import { getCommandGroups } from '../../lib/pack';
 
@@ -31,9 +32,12 @@ export default function PackPage({ params }: { params: { packId: string } }) {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-8 px-6 py-16">
       <div className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.3em] text-white/40">
-          Pack
-        </p>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-xs uppercase tracking-[0.3em] text-white/40">
+            Pack
+          </p>
+          <ThemeToggle />
+        </div>
         <h1 className="text-3xl font-semibold">{pack.title}</h1>
         {pack.description && (
           <p className="text-white/70">{pack.description}</p>

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ThemeToggle from '../../components/ThemeToggle';
 import { getPackById } from '../../data';
 
 export default function StartHerePage() {
@@ -8,9 +9,12 @@ export default function StartHerePage() {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-8 px-6 py-16">
       <div className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.3em] text-white/40">
-          Start Here
-        </p>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-xs uppercase tracking-[0.3em] text-white/40">
+            Start Here
+          </p>
+          <ThemeToggle />
+        </div>
         <h1 className="text-3xl font-semibold">Your first safe commands</h1>
         <p className="text-white/70">
           This page gives you a calm, beginner-safe starting path. Pick your OS,

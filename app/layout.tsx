@@ -1,5 +1,6 @@
-﻿import './globals.css';
+import './globals.css';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 
 const siteUrl = 'https://copycommand.org';
 
@@ -35,9 +36,26 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const themeScript = `
+    (function() {
+      try {
+        var stored = localStorage.getItem('cc-theme');
+        var theme = stored || 'system';
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var resolved = theme === 'system' ? (prefersDark ? 'dark' : 'light') : theme;
+        var root = document.documentElement;
+        root.dataset.theme = theme;
+        root.classList.toggle('theme-dark', resolved === 'dark');
+        root.classList.toggle('theme-light', resolved === 'light');
+      } catch (e) {}
+    })();
+  `;
   return (
     <html lang="en">
       <body>
+        <Script id="theme-init" strategy="beforeInteractive">
+          {themeScript}
+        </Script>
         {children}
       </body>
     </html>
