@@ -11,7 +11,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 ## Current State Snapshot
 - Next.js 14 static-friendly UI with packs, commands, copy buttons, and command pages
 - Pack switching supported via query param and local storage
-- Trust layer started: sources added for top commands
+- Trust layer improved: sources added for top commands in node/dev batch
 - Command count: 88
 - No backend, no accounts, no analytics, no ads
 - Build currently blocked locally by Windows PowerShell execution policy (needs session fix)
@@ -64,6 +64,7 @@ CopyCommand.org is a fast, static-first command library that turns copyable snip
 - 2026-02-22: Added 30-node-dev batch via staging import. Score: Traffic 90 / Learning 54 / Utility 55 / Content 58.
 - 2026-02-22: Updated base command learning + sources and added JSON-LD on command pages. Score: Traffic 92 / Learning 56 / Utility 55 / Content 62.
 - 2026-02-23: Final audit drafted; build stabilized; deployment checklist added. Score: Traffic 93 / Learning 56 / Utility 56 / Content 63.
+- 2026-02-23: Added authoritative sources for top node/dev commands. Score: Traffic 94 / Learning 56 / Utility 56 / Content 64.
 
 ## Weekly Execution Plan (Next 7 Days)
 - Day 1: P0 A hero clarity + CTA, update roadmap

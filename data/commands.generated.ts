@@ -64,7 +64,7 @@ export const generatedCommands: Command[] = [
         "url": "https://docs.npmjs.com/cli/v10/using-npm/dependency-types"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "start-dev",
@@ -128,7 +128,7 @@ export const generatedCommands: Command[] = [
         "url": "https://nextjs.org/docs/app/building-your-application/routing"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "git-status",
@@ -193,7 +193,7 @@ export const generatedCommands: Command[] = [
         "url": "https://www.atlassian.com/git/tutorials/inspecting-a-repository"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "git-pull",
@@ -258,7 +258,7 @@ export const generatedCommands: Command[] = [
         "url": "https://www.atlassian.com/git/tutorials/syncing/git-pull"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "prisma-studio",
@@ -323,7 +323,7 @@ export const generatedCommands: Command[] = [
         "url": "https://www.prisma.io/docs/orm/reference/prisma-cli-reference"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-git-status",
@@ -331,42 +331,49 @@ export const generatedCommands: Command[] = [
     "name": "git status",
     "primaryIntent": "do",
     "tools": [
-      "imported"
+      "git-basics"
     ],
     "tags": [
-      "staged"
+      "git-basics",
+      "git",
+      "status",
+      "beginner"
     ],
     "defaultVariantKey": "windows:powershell",
     "variants": {
       "windows:powershell": {
         "platform": "windows",
         "shell": "powershell",
-        "command": "git-basics,git,status,beginner"
+        "command": "git status"
       },
       "mac:bash": {
         "platform": "mac",
         "shell": "bash",
-        "command": "or untracked."
+        "command": "git status"
       },
       "linux:bash": {
         "platform": "linux",
         "shell": "bash",
-        "command": "or untracked."
+        "command": "git status"
       }
     },
     "learning": {
-      "whatItDoes": "Shows which files are changed",
-      "whenToUse": "Use this when you need to shows which files are changed.",
+      "whatItDoes": "Shows which files are changed, staged, or untracked.",
+      "whenToUse": "Use this when you need to shows which files are changed, staged, or untracked..",
       "examples": [
         {
           "title": "Basic example",
-          "snippet": "git-basics,git,status,beginner",
-          "explanation": "Shows which files are changed"
+          "snippet": "git status",
+          "explanation": "Shows which files are changed, staged, or untracked."
         }
       ],
       "commonMistakes": [
         {
-          "mistake": "git status",
+          "mistake": "fatal: not a git repository",
+          "fix": "Check the command, spelling, and folder, then try again."
+        },
+        {
+          "mistake": "Forgetting to save files before checking",
           "fix": "Check the command, spelling, and folder, then try again."
         }
       ],
@@ -374,11 +381,15 @@ export const generatedCommands: Command[] = [
     },
     "sources": [
       {
-        "label": "Source",
-        "url": "git status"
+        "label": "Official Docs",
+        "url": "https://git-scm.com/docs/git-status"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/inspecting-a-repository"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-git-add-all",
@@ -428,7 +439,7 @@ export const generatedCommands: Command[] = [
           "fix": "Check the command, spelling, and folder, then try again."
         },
         {
-          "mistake": "Nothing added to commit (use \\git status\\ to verify)",
+          "mistake": "Nothing added to commit (use \"git status\" to verify)",
           "fix": "Check the command, spelling, and folder, then try again."
         }
       ],
@@ -438,9 +449,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://git-scm.com/docs/git-add"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/saving-changes"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-git-commit-message",
@@ -500,9 +515,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://git-scm.com/docs/git-commit.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-commit"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-git-pull",
@@ -562,9 +581,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://git-scm.com/docs/git-pull"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/syncing/git-pull"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-git-push",
@@ -624,9 +647,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://git-scm.com/docs/git-push.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/syncing/git-push"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-git-clone",
@@ -686,9 +713,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://git-scm.com/docs/git-clone.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-git-branch",
@@ -748,9 +779,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://git-scm.com/docs/git-branch.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/using-branches"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-git-log-oneline",
@@ -810,9 +845,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://git-scm.com/docs/git-log"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/git-log"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-git-diff",
@@ -872,9 +911,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://git-scm.com/docs/git-diff"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-git-fetch",
@@ -934,9 +977,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://git-scm.com/docs/git-fetch"
+      },
+      {
+        "label": "Reference",
+        "url": "https://www.atlassian.com/git/tutorials/syncing/git-fetch"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-node-version",
@@ -996,9 +1043,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://nodejs.org/api/cli.html"
+      },
+      {
+        "label": "Reference",
+        "url": "https://nodejs.org/api/process.html#processversion"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-npm-version",
@@ -1058,9 +1109,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://docs.npmjs.com/cli/v10/commands/npm"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/using-npm/version"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-npm-install",
@@ -1120,9 +1175,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://docs.npmjs.com/cli/v10/commands/npm-install/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/using-npm/dependency-types"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-npm-ci",
@@ -1181,10 +1240,14 @@ export const generatedCommands: Command[] = [
     "sources": [
       {
         "label": "Official Docs",
-        "url": "https://docs.npmjs.com/cli/v7/commands/npm-ci"
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-ci"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/using-npm/continuous-integration"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-npm-run-dev",
@@ -1230,7 +1293,7 @@ export const generatedCommands: Command[] = [
       ],
       "commonMistakes": [
         {
-          "mistake": "Missing script: \\dev\\",
+          "mistake": "Missing script: \"dev\"",
           "fix": "Check the command, spelling, and folder, then try again."
         },
         {
@@ -1243,10 +1306,14 @@ export const generatedCommands: Command[] = [
     "sources": [
       {
         "label": "Official Docs",
-        "url": "https://docs.npmjs.com/cli/v8/commands/npm-run-script"
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/using-npm/scripts"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-npm-run-build",
@@ -1292,7 +1359,7 @@ export const generatedCommands: Command[] = [
       ],
       "commonMistakes": [
         {
-          "mistake": "Missing script: \\build\\",
+          "mistake": "Missing script: \"build\"",
           "fix": "Check the command, spelling, and folder, then try again."
         },
         {
@@ -1305,10 +1372,14 @@ export const generatedCommands: Command[] = [
     "sources": [
       {
         "label": "Official Docs",
-        "url": "https://docs.npmjs.com/cli/v8/commands/npm-run-script"
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/using-npm/scripts"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-npm-run-lint",
@@ -1354,7 +1425,7 @@ export const generatedCommands: Command[] = [
       ],
       "commonMistakes": [
         {
-          "mistake": "Missing script: \\lint\\",
+          "mistake": "Missing script: \"lint\"",
           "fix": "Check the command, spelling, and folder, then try again."
         },
         {
@@ -1367,10 +1438,14 @@ export const generatedCommands: Command[] = [
     "sources": [
       {
         "label": "Official Docs",
-        "url": "https://docs.npmjs.com/cli/v8/commands/npm-run-script"
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/using-npm/scripts"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-npm-start",
@@ -1416,7 +1491,7 @@ export const generatedCommands: Command[] = [
       ],
       "commonMistakes": [
         {
-          "mistake": "Missing script: \\start\\",
+          "mistake": "Missing script: \"start\"",
           "fix": "Check the command, spelling, and folder, then try again."
         },
         {
@@ -1429,10 +1504,14 @@ export const generatedCommands: Command[] = [
     "sources": [
       {
         "label": "Official Docs",
-        "url": "https://docs.npmjs.com/cli/v8/commands/npm-run-script"
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/using-npm/scripts"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-npm-test",
@@ -1478,7 +1557,7 @@ export const generatedCommands: Command[] = [
       ],
       "commonMistakes": [
         {
-          "mistake": "Missing script: \\test\\",
+          "mistake": "Missing script: \"test\"",
           "fix": "Check the command, spelling, and folder, then try again."
         },
         {
@@ -1491,10 +1570,14 @@ export const generatedCommands: Command[] = [
     "sources": [
       {
         "label": "Official Docs",
-        "url": "https://docs.npmjs.com/cli/v8/commands/npm-run-script"
+        "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/using-npm/scripts"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-npm-cache-clean",
@@ -1554,9 +1637,13 @@ export const generatedCommands: Command[] = [
       {
         "label": "Official Docs",
         "url": "https://docs.npmjs.com/cli/v10/commands/npm-cache/"
+      },
+      {
+        "label": "Reference",
+        "url": "https://docs.npmjs.com/cli/v10/using-npm/config#cache"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-npm-cache-verify",
@@ -1618,7 +1705,7 @@ export const generatedCommands: Command[] = [
         "url": "https://docs.npmjs.com/cli/v10/commands/npm-cache/"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-npm-ls",
@@ -1680,7 +1767,7 @@ export const generatedCommands: Command[] = [
         "url": "https://docs.npmjs.com/cli/v9/commands/npm-ls"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-next-dev",
@@ -1742,7 +1829,7 @@ export const generatedCommands: Command[] = [
         "url": "https://nextjs.org/docs/app/api-reference/cli/next"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-next-dev-port",
@@ -1804,7 +1891,7 @@ export const generatedCommands: Command[] = [
         "url": "https://nextjs.org/docs/app/api-reference/cli/next"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-next-build",
@@ -1866,7 +1953,7 @@ export const generatedCommands: Command[] = [
         "url": "https://nextjs.org/docs/app/api-reference/cli/next"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-next-start",
@@ -1928,7 +2015,7 @@ export const generatedCommands: Command[] = [
         "url": "https://nextjs.org/docs/app/api-reference/cli/next"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-next-lint",
@@ -1990,7 +2077,7 @@ export const generatedCommands: Command[] = [
         "url": "https://nextjs.org/docs/app/api-reference/cli/next"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-next-info",
@@ -2052,7 +2139,7 @@ export const generatedCommands: Command[] = [
         "url": "https://nextjs.org/docs/app/api-reference/cli/next"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-port-find-3000",
@@ -2118,7 +2205,7 @@ export const generatedCommands: Command[] = [
         "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netstat"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   },
   {
     "id": "node-dev-port-kill-pid",
@@ -2184,6 +2271,6 @@ export const generatedCommands: Command[] = [
         "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/taskkill"
       }
     ],
-    "lastReviewed": "2026-02-22"
+    "lastReviewed": "2026-02-23"
   }
 ];
