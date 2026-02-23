@@ -12,6 +12,8 @@ const platformOptions = [
   { id: 'unix', label: 'Mac/Linux Terminal' }
 ];
 
+const BEGINNER_STORAGE_KEY = 'cc-beginner-mode';
+
 type PlatformFilter = 'windows' | 'unix';
 type CopyState = 'idle' | 'copied' | 'error';
 
@@ -57,7 +59,7 @@ export default function CommandTabs({
   const [query, setQuery] = useState('');
   const [copyAllState, setCopyAllState] = useState<CopyState>('idle');
   const [platformFilter, setPlatformFilter] = useState<PlatformFilter>('windows');
-  const [beginnerMode, setBeginnerMode] = useState(true);
+  const [beginnerMode, setBeginnerMode] = useState(false);
 
   const currentActiveId = activeId ?? internalActiveId;
 
@@ -66,6 +68,13 @@ export default function CommandTabs({
     setQuery('');
     setCopyAllState('idle');
   }, [pack.id, groups]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const stored = localStorage.getItem(BEGINNER_STORAGE_KEY);
+    if (stored === 'on') setBeginnerMode(true);
+    if (stored === 'off') setBeginnerMode(false);
+  }, []);
 
   const activeGroup = useMemo(
     () => groups.find((group) => group.id === currentActiveId),
@@ -147,7 +156,18 @@ export default function CommandTabs({
             </div>
             <button
               type="button"
-              onClick={() => setBeginnerMode((prev) => !prev)}
+              onClick={() => {
+                setBeginnerMode((prev) => {
+                  const next = !prev;
+                  if (typeof window !== 'undefined') {
+                    localStorage.setItem(
+                      BEGINNER_STORAGE_KEY,
+                      next ? 'on' : 'off'
+                    );
+                  }
+                  return next;
+                });
+              }}
               className={`rounded-xl px-3 py-2 text-xs font-semibold transition ${
                 beginnerMode
                   ? 'bg-moss-600 text-ink-950'

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import CopyButton from './CopyButton';
 import type { Command } from '../data/schema';
 import {
@@ -12,13 +12,21 @@ import {
 } from '../lib/variants';
 
 export default function CommandPageClient({ command }: { command: Command }) {
-  const [beginnerMode, setBeginnerMode] = useState(true);
+  const [beginnerMode, setBeginnerMode] = useState(false);
   const showVariantToggle = shouldShowVariantToggle(command);
   const options = useMemo(() => getVariantOptions(command), [command]);
   const [variantKey, setVariantKey] = useState(command.defaultVariantKey);
   const activeVariant =
     command.variants[variantKey] ?? getDefaultVariant(command);
   const level = command.learning.warnings?.length ? 'danger' : 'safe';
+  const storageKey = 'cc-beginner-mode';
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const stored = localStorage.getItem(storageKey);
+    if (stored === 'on') setBeginnerMode(true);
+    if (stored === 'off') setBeginnerMode(false);
+  }, [storageKey]);
 
   return (
     <section className="space-y-6">
@@ -31,7 +39,15 @@ export default function CommandPageClient({ command }: { command: Command }) {
         </div>
         <button
           type="button"
-          onClick={() => setBeginnerMode((prev) => !prev)}
+          onClick={() => {
+            setBeginnerMode((prev) => {
+              const next = !prev;
+              if (typeof window !== 'undefined') {
+                localStorage.setItem(storageKey, next ? 'on' : 'off');
+              }
+              return next;
+            });
+          }}
           className={`rounded-xl px-3 py-2 text-xs font-semibold transition ${
             beginnerMode
               ? 'bg-moss-600 text-ink-950'
