@@ -1,7 +1,4 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import ThemeToggle from '../../../components/ThemeToggle';
 import { notFound } from 'next/navigation';
 import type { Command } from '../../../data/schema';
 import {
@@ -10,7 +7,7 @@ import {
   getCommandsForPack,
   getPackById
 } from '../../../data';
-import CommandPageClient from '../../../components/CommandPageClient';
+import CommandPageView from '../../../components/CommandPageView';
 
 export function generateStaticParams() {
   return getCommandRouteList();
@@ -24,7 +21,7 @@ export function generateMetadata({
   const command = getCommandById(params.packId, params.commandId);
   if (!command) return { title: 'Command Not Found' };
   return {
-    title: `${command.name} — CopyCommand`,
+    title: `${command.name} - CopyCommand`,
     description: command.learning.whatItDoes,
     alternates: {
       canonical: `https://copycommand.org/${params.packId}/${params.commandId}`
@@ -87,7 +84,7 @@ export default function CommandPage({
     new Set(Object.values(command.variants).map((variant) => variant.platform))
   );
 
-  const jsonLd = {
+  const jsonLd = JSON.stringify({
     '@context': 'https://schema.org',
     '@graph': [
       {
@@ -115,7 +112,7 @@ export default function CommandPage({
       },
       {
         '@type': 'TechArticle',
-        headline: `${command.name} — CopyCommand`,
+        headline: `${command.name} - CopyCommand`,
         description: command.learning.whatItDoes,
         mainEntityOfPage: {
           '@type': 'WebPage',
@@ -137,7 +134,7 @@ export default function CommandPage({
         url: canonicalUrl
       }
     ]
-  };
+  });
 
   const list = getCommandsForPack(params.packId);
   const index = list.findIndex((item) => item.id === command.id);
@@ -146,91 +143,13 @@ export default function CommandPage({
   const packSlug = encodeURIComponent(pack.slug);
   const related = getRelatedCommands(command, list);
 
-  return (
-    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-8 px-6 py-16">
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-3">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/logo.png"
-              alt="CopyCommand"
-              width={144}
-              height={144}
-              className="h-9 w-auto drop-shadow-sm"
-            />
-          </Link>
-          <Link
-            href={`/${packSlug}`}
-            className="text-sm text-white/60 hover:text-white"
-          >
-            <- Back to {pack.title}
-          </Link>
-        </div>
-        <div className="flex flex-wrap items-center gap-4">
-          <span className="text-xs uppercase tracking-[0.3em] text-white/40">
-            {pack.title}
-          </span>
-          <ThemeToggle />
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <h1 className="text-3xl font-semibold">{command.name}</h1>
-      </div>
-
-      <CommandPageClient command={command} />
-
-      <nav className="grid gap-3 sm:grid-cols-2">
-        {prev ? (
-          <Link
-            href={`/${packSlug}/${encodeURIComponent(prev.slug)}`}
-            className="rounded-xl border border-white/10 bg-ink-900/60 px-4 py-3 text-sm text-white/90 hover:border-white/30"
-          >
-            <span className="text-xs text-white/50">Previous</span>
-            <span className="block font-semibold text-white">{prev.name}</span>
-          </Link>
-        ) : (
-          <div className="rounded-xl border border-white/10 bg-ink-900/40 px-4 py-3 text-sm text-white/40">
-            No previous command
-          </div>
-        )}
-        {next ? (
-          <Link
-            href={`/${packSlug}/${encodeURIComponent(next.slug)}`}
-            className="rounded-xl border border-white/10 bg-ink-900/60 px-4 py-3 text-sm text-white/90 hover:border-white/30"
-          >
-            <span className="text-xs text-white/50">Next</span>
-            <span className="block font-semibold text-white">{next.name}</span>
-          </Link>
-        ) : (
-          <div className="rounded-xl border border-white/10 bg-ink-900/40 px-4 py-3 text-sm text-white/40">
-            No next command
-          </div>
-        )}
-      </nav>
-
-      <section className="space-y-3">
-        <h2 className="text-xl font-semibold">Related commands</h2>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {related.map((item) => (
-            <Link
-              key={item.id}
-              href={`/${packSlug}/${encodeURIComponent(item.slug)}`}
-              className="rounded-xl border border-white/10 bg-ink-900/60 px-4 py-3 text-sm text-white/90 hover:border-white/30"
-            >
-              <span className="block font-semibold text-white">{item.name}</span>
-              <span className="text-xs text-white/50">
-                {item.learning.whatItDoes}
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
-    </main>
-  );
+  return CommandPageView({
+    pack,
+    command,
+    packSlug,
+    prev,
+    next,
+    related,
+    jsonLd
+  });
 }

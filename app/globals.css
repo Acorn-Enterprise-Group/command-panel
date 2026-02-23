@@ -13,7 +13,10 @@
 }
 
 html.theme-dark body {
-  @apply bg-ink-950 text-white font-display min-h-screen;
+  background-color: #0b0f12;
+  color: #ffffff;
+  font-family: var(--font-display);
+  min-height: 100vh;
   background-image:
     radial-gradient(900px 600px at 10% 10%, rgba(110, 231, 183, 0.08), transparent 60%),
     radial-gradient(800px 500px at 90% 0%, rgba(59, 130, 246, 0.08), transparent 55%),
@@ -21,7 +24,10 @@ html.theme-dark body {
 }
 
 html.theme-light body {
-  @apply bg-white text-ink-950 font-display min-h-screen;
+  background-color: #ffffff;
+  color: #0f172a;
+  font-family: var(--font-display);
+  min-height: 100vh;
   background-image:
     radial-gradient(900px 600px at 10% 10%, rgba(52, 211, 153, 0.08), transparent 60%),
     radial-gradient(800px 500px at 90% 0%, rgba(59, 130, 246, 0.08), transparent 55%),
@@ -29,50 +35,24 @@ html.theme-light body {
 }
 
 html:not(.theme-light):not(.theme-dark) body {
-  @apply bg-ink-950 text-white font-display min-h-screen;
+  background-color: #0b0f12;
+  color: #ffffff;
+  font-family: var(--font-display);
+  min-height: 100vh;
   background-image:
     radial-gradient(900px 600px at 10% 10%, rgba(110, 231, 183, 0.08), transparent 60%),
     radial-gradient(800px 500px at 90% 0%, rgba(59, 130, 246, 0.08), transparent 55%),
     linear-gradient(180deg, rgba(11, 15, 18, 0.92) 0%, rgba(11, 15, 18, 0.98) 60%, rgba(10, 12, 14, 1) 100%);
 }
 
-html.theme-light .text-white,
-html.theme-light .text-white\\/90,
-html.theme-light .text-white\\/80,
-html.theme-light .text-white\\/70,
-html.theme-light .text-white\\/60,
-html.theme-light .text-white\\/50,
-html.theme-light .text-white\\/40 {
+html.theme-light .text-white {
   color: rgba(15, 23, 42, 0.92);
-}
-
-html.theme-light .text-white\\/70 {
-  color: rgba(15, 23, 42, 0.7);
-}
-
-html.theme-light .text-white\\/60 {
-  color: rgba(15, 23, 42, 0.6);
-}
-
-html.theme-light .text-white\\/50 {
-  color: rgba(15, 23, 42, 0.5);
-}
-
-html.theme-light .text-white\\/40 {
-  color: rgba(15, 23, 42, 0.4);
 }
 
 html.theme-light .bg-ink-950 {
   background-color: rgba(248, 250, 252, 1);
 }
 
-html.theme-light .bg-ink-900\\/95,
-html.theme-light .bg-ink-900\\/70,
-html.theme-light .bg-ink-900\\/60,
-html.theme-light .bg-ink-900\\/50,
-html.theme-light .bg-ink-900\\/40 {
-  background-color: rgba(226, 232, 240, 0.6);
-}
 
 html.theme-light .bg-ink-850,
 html.theme-light .bg-ink-800 {
@@ -83,13 +63,6 @@ html.theme-light .bg-ink-700 {
   background-color: rgba(226, 232, 240, 1);
 }
 
-html.theme-light .border-white\\/10 {
-  border-color: rgba(15, 23, 42, 0.12);
-}
-
-html.theme-light .border-white\\/30 {
-  border-color: rgba(15, 23, 42, 0.24);
-}
 
 html.theme-light .bg-white {
   background-color: rgba(15, 23, 42, 0.06);
