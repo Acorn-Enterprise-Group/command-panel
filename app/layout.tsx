@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import SiteHeader from '../components/SiteHeader';
 
 const siteUrl = 'https://copycommand.org';
 
@@ -56,6 +57,7 @@ export default function RootLayout({
         <Script id="theme-init" strategy="beforeInteractive">
           {themeScript}
         </Script>
+        <SiteHeader />
         {children}
       </body>
     </html>

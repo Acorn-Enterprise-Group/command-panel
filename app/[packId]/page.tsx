@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import ThemeToggle from '../../components/ThemeToggle';
 import { getAllPackIds, getPackById } from '../../data';
@@ -35,15 +34,6 @@ export default function PackPage({ params }: { params: { packId: string } }) {
       <div className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-3">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/logo.png"
-                alt="CopyCommand"
-                width={144}
-                height={144}
-                className="h-9 w-auto drop-shadow-sm"
-              />
-            </Link>
             <p className="text-xs uppercase tracking-[0.3em] text-white/40">
               Pack
             </p>
