@@ -101,13 +101,7 @@ export default function CommandTabs({
 
   return (
     <div className="space-y-8">
-      <div
-        className="sticky top-0 z-40 -mx-6 space-y-3 border-b px-6 py-4 backdrop-blur-md"
-        style={{
-          backgroundColor: 'rgba(17, 24, 39, 0.85)',
-          borderBottomColor: 'rgba(255, 255, 255, 0.06)'
-        }}
-      >
+      <div className="command-panel sticky top-0 z-40 -mx-6 space-y-3 border-b px-6 py-4 backdrop-blur-md">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div
             className="flex flex-wrap gap-3"

@@ -14,6 +14,9 @@
   --cc-control-bg-hover: rgba(19, 26, 31, 0.9);
   --cc-control-text: #ffffff;
   --cc-focus: rgba(110, 231, 183, 0.5);
+  --cc-panel-bg: rgba(17, 24, 39, 0.85);
+  --cc-panel-border: rgba(255, 255, 255, 0.06);
+  --cc-panel-text: rgba(255, 255, 255, 0.9);
 }
 
 * {
@@ -74,6 +77,12 @@
   }
 }
 
+.command-panel {
+  background-color: var(--cc-panel-bg);
+  border-bottom-color: var(--cc-panel-border);
+  color: var(--cc-panel-text);
+}
+
 html.theme-dark body {
   background-color: #0b0f12;
   color: #ffffff;
@@ -92,6 +101,9 @@ html.theme-light {
   --cc-control-bg-hover: rgba(203, 213, 225, 0.9);
   --cc-control-text: #0f172a;
   --cc-focus: rgba(16, 185, 129, 0.35);
+  --cc-panel-bg: rgba(241, 245, 249, 0.92);
+  --cc-panel-border: rgba(15, 23, 42, 0.12);
+  --cc-panel-text: rgba(15, 23, 42, 0.92);
 }
 
 html.theme-light body {
@@ -129,6 +141,18 @@ html.theme-light [class~="text-white/50"] {
 
 html.theme-light [class~="text-white/40"] {
   color: rgba(15, 23, 42, 0.4);
+}
+
+html.theme-light .command-panel [class~="bg-white/5"] {
+  background-color: rgba(15, 23, 42, 0.04);
+}
+
+html.theme-light .command-panel [class~="bg-white/10"] {
+  background-color: rgba(15, 23, 42, 0.08);
+}
+
+html.theme-light .command-panel [class~="bg-white/20"] {
+  background-color: rgba(15, 23, 42, 0.12);
 }
 
 html.theme-light .bg-ink-950 {
