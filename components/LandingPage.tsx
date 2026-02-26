@@ -58,6 +58,11 @@ export default function LandingPage() {
 
   const handleCategoryClick = (categoryId: string) => {
     setActiveTabId(categoryId);
+    const target = document.getElementById(`section-${categoryId}`);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
     const commands = document.getElementById('commands');
     if (commands) {
       commands.scrollIntoView({ behavior: 'smooth' });
@@ -75,9 +80,9 @@ export default function LandingPage() {
     const params = new URLSearchParams(searchParams.toString());
     params.set('pack', nextPack.slug);
     router.replace(`/?${params.toString()}`);
-    const commands = document.getElementById('commands');
-    if (commands) {
-      commands.scrollIntoView({ behavior: 'smooth' });
+    const target = document.getElementById(`section-${hit.groupId}`);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -193,11 +198,7 @@ export default function LandingPage() {
       </header>
 
       <div id="commands">
-        <CommandTabs
-          pack={pack}
-          activeId={activeTabId}
-          onActiveChange={setActiveTabId}
-        />
+        <CommandTabs pack={pack} onActiveChange={setActiveTabId} />
       </div>
 
       <footer className="flex flex-col gap-3 text-sm text-white/40 md:flex-row md:items-center md:justify-between">
