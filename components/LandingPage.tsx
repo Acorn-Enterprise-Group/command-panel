@@ -38,7 +38,7 @@ function matchesGlobalQuery(command: Command, query: string) {
   return bucket.includes(q);
 }
 
-export default function ClientPage() {
+export default function LandingPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [pack, setPack] = useState<Pack>(() => getPackById('default'));
