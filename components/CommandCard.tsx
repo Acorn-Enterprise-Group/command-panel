@@ -24,12 +24,11 @@ export default function CommandCard({
   return (
     <div className="rounded-2xl border border-white/10 bg-ink-900/70 p-6 shadow-glow">
       <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-        <div className="space-y-2">
-          <p className="text-xs uppercase tracking-[0.3em] text-white/40">
-            Command
+        <div className="space-y-1.5">
+          <p className="font-mono text-lg font-semibold text-white">
+            {variant.command}
           </p>
-          <p className="text-xl font-semibold text-white">{command.name}</p>
-          <p className="text-sm text-white/70">{command.learning.whatItDoes}</p>
+          <p className="text-sm text-white/60">{command.learning.whatItDoes}</p>
         </div>
         <CopyButton text={variant.command} level={level} />
       </div>
